@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Kharis Department Quiz — Full Update</title>
+  <title>Kharis Department Quiz</title>
 
   <!-- Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Quicksand:wght@400;600&display=swap" rel="stylesheet" />
@@ -48,8 +48,44 @@
       position:relative;
     }
 
+/* Smooth fade in/out */
+#quiz, #result {
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+#quiz.show, #result.show {
+  opacity: 1;
+}
+
+
+/* Consistent spacing for card, inputs, buttons */
+.card {
+  padding: 2rem 2rem 3rem 2rem; /* top, right, bottom, left */
+}
+
+input[type="text"], select {
+  margin-bottom: 16px;
+}
+
+.btn {
+  margin: 1rem auto;
+}
     h1 { font-family: 'Fredoka One', cursive; margin-bottom:0.6rem; }
+
     p.lead { margin-bottom:1rem; opacity:0.9; }
+
+h1 {
+  font-size: clamp(1.8rem, 4vw, 2.5rem);
+}
+
+p.lead {
+  font-size: clamp(1rem, 2.5vw, 1.2rem);
+}
+
+.btn {
+  font-size: clamp(1rem, 2.5vw, 1.1rem);
+}
+
 
     input[type="text"], select, textarea {
       width:100%;
@@ -62,6 +98,10 @@
       color: #3c1361;
       text-align:center;
     }
+input[type="text"], select {
+  box-shadow: inset 0 2px 6px rgba(0,0,0,0.15); /* subtle inner shadow */
+}
+
 
     select { appearance:none; background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24'%3E%3Cpath fill='%233c1361' d='M7 10l5 5 5-5H7z'/%3E%3C/svg%3E"); background-repeat:no-repeat; background-position:right 16px center; padding-right:44px; }
 
@@ -83,6 +123,17 @@
       font-size:1rem;
     }
     .btn:hover { filter:brightness(.92); }
+/* Button hover with smooth transition */
+.btn:hover {
+  filter: brightness(0.92);
+  transform: scale(1.02);
+}
+
+/* Explore items hover */
+.explore-item:hover {
+  background: rgba(255,215,0,0.15);
+}
+
 
     .back-btn {
       background:transparent;
@@ -104,6 +155,13 @@
     .result { margin-top:12px; }
     .department { margin:10px 0; font-family:'Fredoka One', cursive; font-size:1.08rem; opacity:0; transform:translateY(10px); transition:all .6s ease; }
     .department.show { opacity:1; transform:none; }
+
+.question-counter {
+  text-align: center;
+  font-weight: 600;
+  margin-bottom: 8px;
+  opacity: 0.9;
+}
 
     .scripture-box {
       margin-top:8px;
@@ -140,11 +198,32 @@
       input[type="text"], select { width: 100%; }
       .btn { max-width:100%; }
     }
+
+/* Disable text selection and dragging */
+body {
+  user-select: none;        /* standard */
+  -webkit-user-select: none; /* Chrome/Safari */
+  -moz-user-select: none;    /* Firefox */
+  -ms-user-select: none;     /* IE10+ */
+}
+
+* {
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-drag: none;
+}
+
   </style>
 </head>
 <body>
   <div class="card" role="main" aria-labelledby="pageTitle">
     <button class="toggle-mode" id="modeBtn" aria-label="Toggle light/dark">🌙</button>
+
+ <!-- LOGO HERE -->
+  <div class="logo-center">
+    <img src="https://kharis.org/wp-content/uploads/2022/08/Logo_transparent_noText.png" 
+         alt="Kharis Church Logo" 
+         style="max-width:100px; display:block; margin:0 auto 16px auto;">
+  </div>
 
     <h1 id="pageTitle">Discover Your Kharis Department</h1>
     <p class="lead center">Answer a few short questions to see where your gifting fits best.</p>
@@ -199,6 +278,37 @@
 
   <script>
   (function(){
+const bgImages = [
+  'https://kharis.org/wp-content/uploads/2022/10/PHOTO-2022-10-11-00-55-32-Copy-2.jpg',
+  'https://kharis.org/wp-content/uploads/2022/11/260807749_4700323106680619_8475937483849630905_n.jpg',
+  'https://kharis.org/wp-content/uploads/2024/06/IMG-20240615-WA0032.jpg',
+'https://kharis.org/wp-content/uploads/2022/10/PHOTO-2022-10-13-12-43-46.jpg',
+'https://kharis.org/wp-content/uploads/2022/10/PHOTO-2022-10-13-12-43-59.jpg',
+'https://kharis.org/wp-content/uploads/2022/10/PHOTO-2022-10-13-12-43-50.jpg',
+'https://store.khar.is/cdn/shop/files/67200988_2450803551632597_4416726294536912896_n_142db4d4-d790-4773-9f17-1714e2b327a4.jpg?v=1626368354',
+'https://tse3.mm.bing.net/th/id/OIP.AL51FSg14qDBFABIsxuprwHaE8?rs=1&pid=ImgDetMain&o=7&rm=3',
+'https://kharis.org/wp-content/uploads/2022/10/PHOTO-2022-09-30-17-34-12-Copy-2.jpg',
+'https://i1.sndcdn.com/artworks-000157048936-ahr5ei-t500x500.jpg',
+'https://tse3.mm.bing.net/th/id/OIP.80wbWy7NCUhItVRpHtU25wHaE8?rs=1&pid=ImgDetMain&o=7&rm=3',
+'https://tse1.mm.bing.net/th/id/OIP.Jf6cwDusA7BPJ1jgs9i0tAHaE8?rs=1&pid=ImgDetMain&o=7&rm=3',
+'https://kharis.org/wp-content/uploads/2022/10/PHOTO-2022-09-30-17-33-42-Copy-10.jpg',
+'https://kharis.org/wp-content/uploads/2024/06/IMG-20240615-WA0036.jpg',
+'https://kharis.org/wp-content/uploads/2023/10/IMG_5389-scaled.jpeg',
+'https://kharis.org/wp-content/uploads/2022/10/PHOTO-2022-09-30-17-33-41-Copy-2.jpg',
+'https://kharis.org/wp-content/uploads/2024/06/IMG-20240615-WA0033.jpg',
+'https://kharis.org/wp-content/uploads/2022/11/271239127_4868436629869265_1030465267411614205_n.jpg',
+'https://kharis.org/wp-content/uploads/2023/10/PHOTO-2023-10-18-15-59-596.jpg',
+'https://kharis.org/wp-content/uploads/2022/10/PHOTO-2022-10-13-12-43-50.jpg',
+
+  // ... up to 20-30 images
+];
+
+function cycleBackground() {
+  const randomIndex = Math.floor(Math.random() * bgImages.length);
+  document.body.style.background = `url('${bgImages[randomIndex]}') center/cover no-repeat fixed`;
+}
+
+setInterval(cycleBackground, 5000); // change every 5 seconds
 
     /* ----------------- Helpers ----------------- */
     function escapeHtml(str){
@@ -263,32 +373,49 @@
       "Ushers": { desc: "Friendly, approachable, and service-minded individuals who enjoy guiding, assisting, and caring for people in practical ways.", scripture: "Hebrews 13:17 - 'Have confidence in your leaders and submit to their authority, because they keep watch over you as those who must give an account.'" },
       "Welfare": { desc: "Compassionate, empathetic, and generous-hearted people who are motivated to help those in need and provide support.", scripture: "Galatians 6:2 - 'Carry each other’s burdens, and in this way you will fulfill the law of Christ.'" },
       "Security": { desc: "Alert, responsible, and protective individuals who prioritise safety and ensure a secure environment for others.", scripture: "Proverbs 27:12 - 'The prudent see danger and take refuge, but the simple keep going and pay the penalty.'" },
-      "Media": { desc: "Creative and tech-savvy individuals who capture, design, and share content that spreads the message with clarity and excellence, making the vision visible to all.", scripture: "Habakkuk 2:2 - 'Write the vision; make it plain on tablets, so he may run who reads it.'" }
-    };
+      "Media": { desc: "Creative and tech-savvy individuals who capture, design, and share content that spreads the message with clarity and excellence, making the vision visible to all.", scripture: "Habakkuk 2:2 - 'Write the vision; make it plain on tablets, so he may run who reads it.'" },
+  "Spoken Word": { 
+  desc: "Expressive and creative individuals who use poetry, spoken word, or performance art to inspire and communicate the gospel with emotion and impact.", 
+  scripture: "Psalm 19:14 - 'May the words of my mouth and the meditation of my heart be pleasing in your sight, O Lord.'" 
+}
+  };
 
     /* --------------- Keywords used to score answers ------------------ */
-    const deptKeywords = {
-      "Administration":["organise","organize","plan","admin","schedule","manage","coordinat"],
-      "Children's Department":["child","kids","children","youth","play","story","teac","kid"],
-      "Design":["design","art","creative","graphic","visual","paint","illustrat"],
-      "Drama":["drama","act","acting","performance","play","stage","role"],
-      "Hospitality":["welcome","serve","hospitality","host","help","refreshments","tea","coffee"],
-      "Host Team":["host","coordinate","guide","greet","welcome","usher"],
-      "Production":["production","stage","lighting","cue","run","stagehand","crew"],
-      "Music":["sing","music","play","instrument","worship","vocal","choir"],
-      "Follow Up":["connect","follow up","contact","message","call","visit","reach out"],
-      "New Believers":["teach","mentor","discipleship","mentor","grow","new believer","bible study"],
-      "Evangelism":["share","evangelism","preach","gospel","bold","outreach","invite"],
-      "Sanctuary Keepers":["clean","maintain","space","tidy","cleaning","order"],
-      "Set-up":["setup","equipment","arrange","assemble","load","lift"],
-      "Social Media":["social","media","online","content","post","instagram","facebook","tiktok","youtube"],
-      "Sound":["audio","mic","speaker","sound","mix","mixer","monitor"],
-      "Uniform":["attire","uniform","clothes","appearance","presentation"],
-      "Ushers":["guide","usher","assist","seat","help","directions"],
-      "Welfare":["care","serve","help","support","pastoral","counsel","welfare"],
-      "Security":["protect","security","safe","safety","guard","watch"],
-      "Media":["software","tech","captur","capture","video","camera","edit","photo","film"]
-    };
+    /* --------------- Keywords used to score answers (enhanced) ------------------ */
+const deptKeywords = {
+  "Administration":["organise","organised","plan","planning","admin","schedule","manage","coordinate","management","administer","office","records"],
+  "Children's Department":["child","kids","children","youth","play","story","teach","kid","nursery","little ones","junior","toddler","children ministry","children's ministry","Sunday school"],
+  "Design":["design","art","creative","graphic","visual","paint","illustrate","drawing","drawing","photoshop","illustration","branding","logo","creative design","visuals","artist","digital art"],
+  "Drama":["drama","act","acting","show","play","stage","role","performance","perform","skit","theatre","theatre arts","dramatise","dramatise"],
+  "Hospitality":["look after","health","hospitality","wellbeing","help","care","caring","watch over","serve food","welcoming","host","serve guests","serve others","team hospitality"],
+  "Host Team":["host","friendly","guide","greet","welcome","speaking","reception","ushering","introduce","receptionist","guide people","meet and greet","hosting"],
+  "Production":["camera","behind the scenes","media","organise","videography","editing","livestream","sound","lighting","technical","projection","tech","AV","production team","video production","stage crew"],
+  "Music":["sing","music","play","instrument","worship","vocal","choir","perform","praise","guitar","drums","piano","band","musician","song","lead worship","musical"],
+  "Follow Up":["connect","follow up","contact","message","call","visit","reach out","check in","connect people","follow-up ministry","followup","pastoral follow up"],
+  "New Believers":["teach","mentor","discipleship","mentor","grow","new believer","bible study","new Christian","guide new believers","mentorship","discipleship ministry"],
+  "Evangelism":["share","evangelism","preach","gospel","bold","outreach","invite","mission","proclaim","evangelise","witness","evangelistic","spread the word","street ministry"],
+  "Sanctuary Keepers":["clean","maintain","space","tidy","cleaning","order","organize","sanctuary","church cleaning","maintenance","keep church clean","facility care"],
+  "Set-up":["setup","equipment","arrange","assemble","load","lift","organise","prep","prepare","set up room","logistics","stage setup","technical setup","setup team"],
+  "Social Media":["social","media","online","content","post","instagram","facebook","tiktok","youtube","digital media","social networking","content creation","social platforms","social marketing"],
+  "Sound":["audio","mic","speaker","sound","problem solver","microphone","observant","mixing","soundboard","audio engineer","sound tech","audio setup","mixing desk"],
+  "Uniform":["attire","uniform","clothes","appearance","presentation","order","fashion","dress code","presentation","consistent look","professional attire"],
+  "Ushers":["guide","usher","assist","friendly","help","directions","welcome","greet","ushering","seat people","direct people","usher team","guide guests"],
+  "Welfare":["care","serve","help","support","pastoral","counsel","welfare","compassion","assist","serve others","social care","support ministry","counselling","empathy"],
+  "Security":["protect","disciplined","safe","safety","guard","watch","secure","security","patrol","monitor","protection","safe environment","safety team"],
+  "Media":["software","tech","editing","capture","video","camera","edit","photo","film","content creation","graphic","multimedia","media production","digital media","media team","behind the scenes"],
+  "Spoken Word":["poetry","spoken word","rhythm","emotion","inspire","express","storytell","storytelling","perform","recite","slam poetry","creative writing","spoken ministry"]
+};
+// Strengthen behind-the-scenes mapping
+deptKeywords["Set-up"].push("build","building","rebuild","construct","construction","setup team","set up","set-up");
+deptKeywords["Production"].push("behind the scenes","low profile","quiet role","technical support","ops","operations","operate");
+deptKeywords["Sanctuary Keepers"].push("tidy up","clean up","orderly","maintain","maintenance","facility","housekeeping");
+
+// Strengthen “Word care” mapping away from Spoken Word
+deptKeywords["Follow Up"].push("scripture","word of god","bible verse","share scripture","encourage with scripture","check in");
+deptKeywords["New Believers"].push("scripture","word of god","bible study","teach the word","explain scripture","discipleship");
+
+// Tighten Spoken Word trigger (performance/poetry focus)
+deptKeywords["Spoken Word"].push("poem","poetry","lyric","spoken word piece","recite","recitation","stage poem","slam","monologue");
 
     /* --------------- State ------------------ */
     let username = "";
@@ -311,67 +438,148 @@
       questionHistory = [];
     }
 
-    /* --------------- Show question ------------------ */
-    function showQuestion(){
-      const qObj = quizzes[currentQuiz][currentQ];
-      quizEl.innerHTML = `
-        <div class="scripture">${escapeHtml(qObj.s)}</div>
-        <div class="question">${escapeHtml(qObj.q)}</div>
-        <input id="answer" type="text" placeholder="Type your answer here..." aria-label="Your answer" />
-        <button class="btn" id="nextBtn">Next</button>
-      `;
-      quizEl.style.display = "block";
-      startScreenEl.style.display = "none";
-      resultEl.style.display = "none";
-      backBtn.style.display = currentQ > 0 ? "inline-block" : "none";
-      progressBar.style.width = Math.round(((currentQ+1)/quizzes[currentQuiz].length)*100) + "%";
+    /* --------------- Show question ------------------ */function showQuestion(){
+  const qObj = quizzes[currentQuiz][currentQ];
 
-      // attach listener
-      document.getElementById('nextBtn').addEventListener('click', nextQuestion);
+  quizEl.innerHTML = `
+    <div class="question-counter">Question ${currentQ+1} of ${quizzes[currentQuiz].length}</div>
+    <div class="scripture">${escapeHtml(qObj.s)}</div>
+    <div class="question">${escapeHtml(qObj.q)}</div>
+    <input id="answer" type="text" placeholder="Type your answer here..." aria-label="Your answer" />
+    <div id="error-msg" style="color:#ffd700;font-weight:600;text-align:center;margin-bottom:10px;"></div>
+    <button class="btn" id="nextBtn">Next</button>
+  `;
 
-      // focus input
-      setTimeout(()=>{ const a = document.getElementById('answer'); if(a) a.focus(); }, 50);
-    }
+  quizEl.style.display = "block";
+  startScreenEl.style.display = "none";
+  resultEl.style.display = "none";
+  quizEl.classList.add('show');
+  resultEl.classList.remove('show'); // only quiz is showing
+  backBtn.style.display = currentQ > 0 ? "inline-block" : "none";
+  progressBar.style.width = Math.round(((currentQ+1)/quizzes[currentQuiz].length)*100) + "%";
+
+  // tiny delay ensures button is in DOM
+  setTimeout(()=>{
+    const nextBtn = document.getElementById('nextBtn');
+    if(nextBtn) nextBtn.addEventListener('click', nextQuestion);
+
+    const answerInput = document.getElementById('answer');
+    if(answerInput) answerInput.focus();
+  }, 20);
+}
+
 
     /* --------------- Scoring ------------------ */
-    function scoreAnswer(input){
-      const text = input.toLowerCase();
+function scoreAnswer(input){
+  const text = (input || '').toLowerCase().trim();
+  if(!text) return;
 
-      // trait scoring (simple substring checks)
-      if(text.match(/\b(create|art|design|draw|paint|film|photo|song|write|compose)\b/)) traits.creative++;
-      if(text.match(/\b(organis|organize|plan|schedule|manage|coordinate|arrange)\b/)) traits.organised++;
-      if(text.match(/\b(speak|lead|preach|bold|present|leadership|evangel)\b/)) traits.bold++;
-      if(text.match(/\b(help|serve|care|support|encourag|pastor|counsel)\b/)) traits.servant++;
+  // Remove punctuation for better matching
+  const cleanText = text.replace(/[.,!?;:]/g, ' ');
 
-      // dept keyword scoring
-      Object.entries(deptKeywords).forEach(([dept, keywords])=>{
-        // If this is the children's department and the branch isn't London-ish, skip (example business rule)
-        if(dept === "Children's Department") {
-          const lowerBranch = (branch || '').toLowerCase();
-          const allowed = ["kharis church london", "kharis london", "london"];
-          if(!allowed.some(a => lowerBranch.includes(a))) {
-            // skip scoring for Children's Department for non-London branches
-            return;
-          }
-        }
-        keywords.forEach(k => {
-          if(text.includes(k)) {
-            deptScores[dept] = (deptScores[dept] || 0) + 2;
-          }
-        });
+  // Split into sentences
+  const sentences = cleanText.split(/\n|[.!?]+/).map(s => s.trim()).filter(Boolean);
+
+  // Trait scoring
+  sentences.forEach(sentence => {
+    if(sentence.match(/\b(create|art|design|draw|paint|film|photo|song|write|compose|music|sing|instrument)s?\b/)) traits.creative++;
+    if(sentence.match(/\b(organis(e|ing|ed)?|plan|planning|schedule|manage|coordinate|arrange|admin|setup|office|records)\b/)) traits.organised++;
+    if(sentence.match(/\b(speak|lead|preach|bold|present|leadership|evangel|perform|acting|drama|role|stage)\b/)) traits.bold++;
+    if(sentence.match(/\b(help|serve|care|support|encourag|pastor|counsel|hospitality|guide|assist|welcome|usher|welfare)\b/)) traits.servant++;
+  });
+// Trait scoring already here...
+
+// Extra adjustment: if user self-identifies as quiet, reduce bold
+if (/\b(quiet|don['’]?t like to talk|not.*talk|prefer not to speak)\b/.test(cleanText)) {
+  traits.bold = Math.max(0, traits.bold - 1);
+}
+
+  // Negative words
+  const negatives = ["not", "don't", "dont", "never", "hate", "dislike", "avoid"];
+
+  // Department scoring
+  const sentenceScores = {};
+  sentences.forEach(sentence => {
+    Object.entries(deptKeywords).forEach(([dept, keywords]) => {
+      // Skip Children’s Dept if not London
+      if(dept === "Children's Department") {
+        const lowerBranch = (branch || '').toLowerCase();
+        const allowed = ["kharis church london", "kharis london", "london"];
+        if(!allowed.some(a => lowerBranch.includes(a))) return;
+      }
+
+      let count = 0;
+      keywords.forEach(k => {
+        const pattern = new RegExp(`\\b${k.replace(/[-/\\^$*+?.()|[\]{}]/g,'\\$&')}(s|es|ing)?\\b`, "i");
+        if(pattern.test(sentence)) count++;
       });
 
-      answersGiven.push({ question: quizzes[currentQuiz][currentQ].q, answer: input, scripture: quizzes[currentQuiz][currentQ].s });
+      if(count > 0){
+        let multiplier = 1;
+        // Apply small penalty for negative words
+        const negCount = negatives.reduce((acc, neg) => acc + (sentence.includes(neg) ? 1 : 0), 0);
+        if(negCount > 0) multiplier -= 0.25 * negCount; // -0.25 per negative word in sentence
+
+        sentenceScores[dept] = (sentenceScores[dept] || 0) + count**1.5 * multiplier;
+      }
+    });
+  });
+
+  // Normalize scores
+  const maxScore = Math.max(...Object.values(sentenceScores), 1);
+  Object.entries(sentenceScores).forEach(([dept, score]) => {
+    deptScores[dept] = (deptScores[dept] || 0) + (score / maxScore) * 2;
+  });
+
+  // Trait-based proportional influence
+// do NOT redeclare traits; use the global one
+
+const traitMapping = {
+  creative: ["Design","Music","Drama","Spoken Word","Social Media","Media"],
+  organised: ["Administration","Set-up","Production","Sanctuary Keepers","Uniform"],
+  bold: ["Evangelism","Drama","Host Team","Music","Spoken Word"],
+  servant: ["Welfare","Hospitality","Ushers","Follow Up","Children's Department"],
+  social: ["Host Team","Follow Up","Evangelism","Children's Department"],
+  tech: ["Production","Sound","Media","Social Media"]
+};
+
+  const totalTraits = Object.values(traits).reduce((a,b)=>a+b,1);
+  Object.entries(traits).forEach(([trait,val]) => {
+    if(val > 0){
+      const boost = 1 + (val / totalTraits) * 0.5; // normalized proportional boost
+      traitMapping[trait].forEach(dept => {
+        deptScores[dept] = (deptScores[dept] || 0) * boost;
+      });
     }
+  });
+
+  // Adjust for repeated mentions but cap to avoid overweighting
+  Object.entries(deptKeywords).forEach(([dept, keywords])=>{
+    let repeatCount = 0;
+    keywords.forEach(k => {
+      const pattern = new RegExp(`\\b${k.replace(/[-/\\^$*+?.()|[\]{}]/g,'\\$&')}\\b`, "gi");
+      const matches = (cleanText.match(pattern) || []).length;
+      if(matches > 1) repeatCount += Math.min(matches - 1, 2); // max 2 bonus per keyword
+    });
+    if(repeatCount > 0) deptScores[dept] += repeatCount * 0.4;
+  });
+
+  // Save answer history
+  answersGiven.push({ question: quizzes[currentQuiz][currentQ].q, answer: input, scripture: quizzes[currentQuiz][currentQ].s });
+}
+
+
+
 
     /* --------------- Next / Back logic ------------------ */
     function nextQuestion(){
       const inputEl = document.getElementById('answer');
       const value = inputEl ? inputEl.value.trim() : '';
-      if(!value){
-        alert("Please type something so we can figure this out 😊");
-        return;
-      }
+     if(!value){
+  document.getElementById('error-msg').textContent = "Please type something so we can figure this out 😊";
+  return;
+}
+
 
       // save snapshot for back
       questionHistory.push({ q: currentQ, deptScores: JSON.parse(JSON.stringify(deptScores)), traits: JSON.parse(JSON.stringify(traits)), answersGiven: JSON.parse(JSON.stringify(answersGiven)) });
@@ -400,7 +608,10 @@
     /* --------------- Show result ------------------ */
     async function showResult(){
       quizEl.style.display = "none";
-      resultEl.style.display = "block";
+     resultEl.style.display = "block";
+quizEl.classList.add('show');  // for quiz
+resultEl.classList.add('show'); // for result
+
       backBtn.style.display = "none";
       progressBar.style.width = "100%";
 
@@ -516,28 +727,27 @@
         });
       });
 
-      // Back button to restore results
-      const backBtnLocal = document.getElementById('back-to-result');
-      backBtnLocal && backBtnLocal.addEventListener('click', ()=> {
-        // restore lastResultHtml and reattach its handlers
-        resultEl.innerHTML = lastResultHtml;
-        // reattach listeners again
-        const exploreBtn = document.getElementById('explore-all-btn');
-        const restartBtn = document.getElementById('restart-btn');
-        if(exploreBtn) exploreBtn.addEventListener('click', renderExploreList);
-        if(restartBtn) restartBtn.addEventListener('click', restartWithoutReload);
-        // re-run small show animation for top depts
-        lastSorted.forEach((_,i) => {
-          const el = document.getElementById(`dept-${i}`);
-          const sb = document.getElementById(`scripture-${i}`);
-          if(el){
-            setTimeout(()=> {
-              el.classList.add('show');
-              sb.classList.add('visible');
-            }, i*300);
-          }
-        });
-      });
+            // Back button handler
+document.getElementById('back-to-result').addEventListener('click', () => {
+  resultEl.innerHTML = lastResultHtml;
+
+  // reattach the listeners for explore and restart after restoring
+  document.getElementById('explore-all-btn').addEventListener('click', renderExploreList);
+  document.getElementById('restart-btn').addEventListener('click', restartWithoutReload);
+
+  // animate showing the top departments again
+  lastSorted.forEach((_,i) => {
+    const el = document.getElementById(`dept-${i}`);
+    const sb = document.getElementById(`scripture-${i}`);
+    if(el){
+      setTimeout(()=> {
+        el.classList.add('show');
+        sb.classList.add('visible');
+      }, i*350);
+    }
+  });
+});
+
     }
 
     /* --------------- Save results (POST to SHEET_URL) ------------------ */
@@ -608,9 +818,23 @@
 
     /* --------------- Initial focus --------------- */
     usernameInput.focus();
+// Disable right-click context menu
+document.addEventListener('contextmenu', e => e.preventDefault());
+
+// Disable certain keys: Ctrl+C, Ctrl+V, Ctrl+U, F12, Ctrl+Shift+I
+document.addEventListener('keydown', e => {
+  if (
+    (e.ctrlKey && ['c','v','u'].includes(e.key.toLowerCase())) ||
+    e.key === 'F12' ||
+    (e.ctrlKey && e.shiftKey && e.key.toLowerCase() === 'i')
+  ) {
+    e.preventDefault();
+  }
+});
+
 
     /* --------------- End IIFE ------------------ */
   })();
   </script>
 </body>
-</html>
+</html> 

@@ -1,24 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Kharis Department Quiz — Full Update</title>
-
-  <!-- Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Quicksand:wght@400;600&display=swap" rel="stylesheet" />
-
+  <meta 
+charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kharis Department Quiz </title>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
   <style>
-    /* ---------- Base ---------- */
     * { box-sizing: border-box; transition: all .25s ease; }
-    html,body { height:100%; }
+    html, body { height: 100%; margin: 0; }
+    
     body {
-      margin:0;
       font-family: 'Quicksand', system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      min-height:100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
       padding: 2rem;
       --bg-img: url('https://kharis.org/wp-content/uploads/2022/11/271239127_4868436629869265_1030465267411614205_n.jpg');
       --card-bg: rgba(60,19,97,0.85);
@@ -26,8 +23,9 @@
       --btn-color: #3c1361;
       --text-color: #fff;
       background: var(--bg-img) center/cover no-repeat fixed;
-      color:var(--text-color);
+      color: var(--text-color);
     }
+    
     body.light {
       --card-bg: rgba(255,255,255,0.95);
       --btn-bg: #3c1361;
@@ -35,110 +33,269 @@
       --text-color: #111;
       background: linear-gradient(180deg,#fff,#f4f4f4);
     }
-
-    /* ---------- Card ---------- */
+    
     .card {
-      width:100%;
-      max-width:820px;
-      background:var(--card-bg);
-      border-radius:18px;
-      padding:2rem;
+      width: 100%;
+      max-width: 820px;
+      background: var(--card-bg);
+      border-radius: 18px;
+      padding: 2rem;
       box-shadow: 0 10px 30px rgba(0,0,0,0.35);
-      color:var(--text-color);
-      position:relative;
+      color: var(--text-color);
+      position: relative;
     }
-
-    h1 { font-family: 'Fredoka One', cursive; margin-bottom:0.6rem; }
-    p.lead { margin-bottom:1rem; opacity:0.9; }
-
-    input[type="text"], select, textarea {
-      width:100%;
-      padding:12px 14px;
+    
+    h1 { font-family: 'Fredoka One', cursive; margin-bottom: 0.6rem; }
+    p.lead { margin-bottom: 1rem; opacity: 0.9; }
+    
+    .btn {
+      display: inline-block;
+      width: 100%;
+      max-width: 360px;
+      margin: 0.6rem auto;
+      padding: 12px 18px;
+      border-radius: 50px;
+      border: none;
+      background: var(--btn-bg);
+      color: var(--btn-color);
+      font-family: 'Fredoka One', cursive;
+      cursor: pointer;
+      font-size: 1rem;
+    }
+    
+    .btn:hover { filter: brightness(.92); transform: scale(1.02); }
+    
+    input[type="text"], select {
+      width: 100%;
+      padding: 12px 14px;
       border-radius: 30px;
       border: none;
-      font-size:1rem;
-      margin-bottom:12px;
+      font-size: 1rem;
+      margin-bottom: 12px;
       background: rgba(255,255,255,0.9);
       color: #3c1361;
-      text-align:center;
+      text-align: center;
+      box-shadow: inset 0 2px 6px rgba(0,0,0,0.15);
     }
-
-    select { appearance:none; background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24'%3E%3Cpath fill='%233c1361' d='M7 10l5 5 5-5H7z'/%3E%3C/svg%3E"); background-repeat:no-repeat; background-position:right 16px center; padding-right:44px; }
-
-    .row { display:flex; gap:12px; align-items:center; }
-    .center { text-align:center; }
-
-    .btn {
-      display:inline-block;
-      width:100%;
-      max-width:360px;
-      margin: 0.6rem auto;
-      padding:12px 18px;
-      border-radius:50px;
-      border:none;
-      background:var(--btn-bg);
-      color:var(--btn-color);
-      font-family: 'Fredoka One', cursive;
-      cursor:pointer;
-      font-size:1rem;
+    
+    /* Bubbly Dropdown Styles */
+    .language-dropdown-container {
+      position: relative;
+      display: inline-block;
+      margin: 0 auto 20px auto;
+      text-align: center;
+      z-index: 1000;
     }
-    .btn:hover { filter:brightness(.92); }
+    
+body.light .language-select {
+  color: #3c1361;
+  background: rgba(255, 255, 255, 0.8);
+}
+
+body.light .language-select option {
+  background: rgba(255, 255, 255, 0.95);
+  color: #3c1361;
+}
+
+body.light .language-dropdown-container::after {
+  color: #3c1361;
+}
+
+
+    .language-select {
+      appearance: none;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      background: rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(10px);
+      border: 2px solid rgba(255, 215, 0, 0.7);
+      border-radius: 25px;
+      padding: 12px 45px 12px 20px;
+      font-size: 16px;
+      font-weight: bold;
+      color: #fff;
+      cursor: pointer;
+      width: 200px;
+      text-align: center;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+      transition: all 0.3s ease;
+      outline: none;
+    }
+    
+    .language-select:hover {
+      background: rgba(255, 255, 255, 0.3);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+      transform: translateY(-2px);
+    }
+    
+    .language-select:focus {
+      box-shadow: 0 0 0 3px rgba(255, 215, 0, 0.5);
+    }
+    
+    .language-dropdown-container::after {
+      content: "▼";
+      font-size: 12px;
+      color: #ffd700;
+      position: absolute;
+      right: 20px;
+      top: 50%;
+      transform: translateY(-50%);
+      pointer-events: none;
+    }
+    
+    .language-select option {
+      background: rgba(60, 19, 97, 0.95);
+      color: #fff;
+      padding: 10px;
+      border-radius: 15px;
+      margin: 5px;
+      font-weight: bold;
+    }
+    
+    .language-select::-webkit-scrollbar {
+      width: 8px;
+    }
+    
+    .language-select::-webkit-scrollbar-track {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 10px;
+    }
+    
+    .language-select::-webkit-scrollbar-thumb {
+      background: rgba(255, 215, 0, 0.7);
+      border-radius: 10px;
+    }
+    
+    .language-select::-webkit-scrollbar-thumb:hover {
+      background: rgba(255, 215, 0, 0.9);
+    }
+    
+    /* Quiz specific styles */
+    #quiz, #result { 
+      opacity: 0; 
+      transition: opacity 0.5s ease; 
+      display: none;
+    }
+    #quiz.show, #result.show { 
+      opacity: 1; 
+      display: block;
+    }
+    
+    .question-counter {
+      text-align: center;
+      font-weight: 600;
+      margin-bottom: 8px;
+      opacity: 0.9;
+    }
+    
+    .question { font-family: 'Fredoka One', cursive; font-size: 1.15rem; margin: 10px 0; }
+    .scripture { font-style: italic; opacity: 0.85; margin-bottom: 8px; }
+    
+    .progress-bar { width: 100%; height: 12px; background: #ddd; border-radius: 999px; overflow: hidden; margin: 14px 0; }
+    .progress { height: 100%; width: 0%; background: var(--btn-bg); transition: width .35s ease; }
+    
+    .result { margin-top: 12px; }
+    .department { margin: 10px 0; font-family: 'Fredoka One', cursive; font-size: 1.08rem; opacity: 0; transform: translateY(10px); transition: all .6s ease; }
+    .department.show { opacity: 1; transform: none; }
+    
+    .scripture-box {
+      margin-top: 8px;
+      padding: 12px;
+      border-left: 5px solid var(--btn-bg);
+      background: rgba(255,215,0,0.08);
+      border-radius: 8px;
+      text-align: left;
+      font-style: italic;
+      display: none;
+    }
+    
+    .scripture-box.visible { display: block; }
+    
+    .toggle-mode {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      background: transparent;
+      border: 2px solid var(--btn-bg);
+      color: var(--btn-bg);
+      padding: 6px 10px;
+      border-radius: 18px;
+      cursor: pointer;
+    }
+    
+.voice-btn {
+    background: transparent;
+    border: none;
+    color: var(--btn-bg);
+    font-size: 1.2rem;
+    cursor: pointer;
+    margin-left: 8px;
+    vertical-align: middle;
+}
+
+.voice-btn:hover {
+    transform: scale(1.1);
+}
+
+.question-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 10px 0;
+}
+
 
     .back-btn {
-      background:transparent;
-      color:var(--btn-bg);
-      border:2px solid var(--btn-bg);
-      padding:8px 14px;
-      border-radius:28px;
-      cursor:pointer;
+      background: transparent;
+      color: var(--btn-bg);
+      border: 2px solid var(--btn-bg);
+      padding: 8px 14px;
+      border-radius: 28px;
+      cursor: pointer;
       font-family: 'Fredoka One', cursive;
-      display:inline-block;
+      display: inline-block;
     }
-
-    .question { font-family: 'Fredoka One', cursive; font-size:1.15rem; margin:10px 0; }
-    .scripture { font-style:italic; opacity:0.85; margin-bottom:8px; }
-
-    .progress-bar { width:100%; height:12px; background:#ddd; border-radius:999px; overflow:hidden; margin:14px 0; }
-    .progress { height:100%; width:0%; background:var(--btn-bg); transition:width .35s ease; }
-
-    .result { margin-top:12px; }
-    .department { margin:10px 0; font-family:'Fredoka One', cursive; font-size:1.08rem; opacity:0; transform:translateY(10px); transition:all .6s ease; }
-    .department.show { opacity:1; transform:none; }
-
-    .scripture-box {
-      margin-top:8px;
-      padding:12px;
-      border-left:5px solid var(--btn-bg);
-      background: rgba(255,215,0,0.08);
-      border-radius:8px;
-      text-align:left;
-      font-style:italic;
-      display:none;
-    }
-    .scripture-box.visible { display:block; }
-
-    /* Explore list (titles only) */
-    .explore-list { margin-top:12px; display:flex; flex-direction:column; gap:8px; }
+    
+    /* Explore list styles */
+    .explore-list { margin-top: 12px; display: flex; flex-direction: column; gap: 8px; }
     .explore-item {
       background: rgba(255,255,255,0.06);
-      padding:12px 14px;
-      border-radius:8px;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      cursor:pointer;
-      font-weight:700;
+      padding: 12px 14px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      cursor: pointer;
+      font-weight: 700;
     }
-    .explore-item .title { flex:1; text-align:left; font-weight:700; }
-    .explore-details { display:none; padding:10px 12px; margin-top:8px; background: rgba(0,0,0,0.15); border-radius:6px; text-align:left; font-style:normal; color:var(--text-color); }
-    .explore-details.visible { display:block; }
-
-    .toggle-mode { position:absolute; top:16px; right:16px; background:transparent; border:2px solid var(--btn-bg); color:var(--btn-bg); padding:6px 10px; border-radius:18px; cursor:pointer; }
-
-    @media (max-width:700px) {
-      .card { padding:1.25rem; border-radius:12px; }
-      input[type="text"], select { width: 100%; }
-      .btn { max-width:100%; }
+    .explore-item .title { flex: 1; text-align: left; font-weight: 700; }
+    .explore-details { display: none; padding: 10px 12px; margin-top: 8px; background: rgba(0,0,0,0.15); border-radius: 6px; text-align: left; font-style: normal; color: var(--text-color); }
+    .explore-details.visible { display: block; }
+    
+    /* Background slideshow */
+    .bg-slideshow {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+    }
+    
+    .bg-slide {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      transition: opacity 1s ease-in-out;
+      background-size: cover;
+      background-position: center;
+    }
+    
+    .bg-slide.active {
+      opacity: 1;
     }
   </style>
 </head>
@@ -146,12 +303,57 @@
   <div class="card" role="main" aria-labelledby="pageTitle">
     <button class="toggle-mode" id="modeBtn" aria-label="Toggle light/dark">🌙</button>
 
+    <!-- LOGO HERE -->
+    <div class="logo-center">
+      <img src="https://kharis.org/wp-content/uploads/2022/08/Logo_transparent_noText.png" 
+           alt="Kharis Church Logo" 
+           style="max-width:80px; display:block; margin:0 auto 16px auto;">
+    </div>
+
     <h1 id="pageTitle">Discover Your Kharis Department</h1>
-    <p class="lead center">Answer a few short questions to see where your gifting fits best.</p>
+    <p class="lead center" id="pageSubtitle">Answer a few short questions to see where your gifting fits best.</p>
+
+    <!-- Bubbly Language Dropdown -->
+    <div class="language-dropdown-container">
+      <select id="languageSelect" class="language-select" aria-label="Select Language">
+<option value="en">English 🇬🇧</option>
+<option value="fr">Français (French) 🇫🇷</option>
+<option value="es">Español (Spanish) 🇪🇸</option>
+<option value="de">Deutsch (German) 🇩🇪</option>
+ <option value="tw">Twi (Ghana) 🇬🇭</option>
+  <option value="sv">Svenska 🇸🇪</option>
+  <option value="gd">Gàidhlig (Scottish) 🏴󠁧󠁢󠁳󠁣󠁴󠁿</option>
+<option disabled>────────── Coming Soon Translations ──────────</option>
+ <option value="pt"disabled>Português (Portuguese) 🇵🇹</option>
+<option value="it"disabled>Italiano (Italian) 🇮🇹</option>
+<option value="hi" disabled>हिन्दी (Hindi)  🇮🇳</option>
+<option value="zh"disabled>中文 (Chinese) 🇨🇳</option>
+<option value="ja"disabled>日本語 (Japanese) 🇯🇵</option>
+<option value="ko"disabled>한국어 (Korean) 🇰🇷</option>
+<option value="ru"disabled>Русский (Russian) 🇷🇺</option>
+<option value="ar"disabled>العربية (Arabic) 🇸🇦</option>
+<option value="he"disabled>עברית (Hebrew) 🇮🇱</option>
+<option value="tr"disabled>Türkçe (Turkish) 🇹🇷</option>
+<option value="el"disabled>Ελληνικά (Greek) 🇬🇷</option>
+<option value="ga"disabled>Gaeilge (Irish) 🇮🇪</option>
+<option value="nl"disabled>Nederlands (Dutch) 🇳🇱</option>
+<option value="pl"disabled>Polski (Polish) 🇵🇱</option>
+<option value="uk"disabled>Українська (Ukrainian) 🇺🇦</option>
+<option value="zu"disabled>isiZulu (Zulu) 🇿🇦</option>
+<option value="sw"disabled>Kiswahili (Swahili) 🇰🇪</option>
+<option value="yo"disabled>Yorùbá (Yoruba) 🇳🇬</option>
+<option value="ig"disabled>Igbo (Igbo) 🇳🇬</option>
+<option value="jv"disabled>Basa Jawa (Javanese) 🇮🇩</option>
+<option value="bn"disabled>বাংলা (Bengali) 🇧🇩</option>
+<option value="ta"disabled>தமிழ் (Tamil) 🇱🇰</option>
+<option value="vi"disabled>Tiếng Việt (Vietnamese) 🇻🇳</option>
+<option value="th"disabled>ไทย (Thai) 🇹🇭</option>
+      </select>
+    </div>
 
     <!-- Start Screen -->
     <div id="start-screen">
-      <input id="username" type="text" placeholder="Enter your Fullname " />
+      <input id="username" type="text" placeholder="Enter your Fullname" />
       <select id="branch" aria-label="Select branch">
         <option value="" disabled selected>Select your branch</option>
         <option>Kharis Church Accra</option>
@@ -179,40 +381,433 @@
     </div>
 
     <!-- Quiz -->
-    <div id="quiz" style="display:none;"></div>
+    <div id="quiz"></div>
 
     <div class="progress-bar" aria-hidden="true"><div class="progress" id="progress"></div></div>
 
     <div style="text-align:center;">
-      <button class="back-btn" id="back-btn" style="display:none;">&larr; Back</button>
+      <button class="back-btn" id="back-btn" style="display:none;">← Back</button>
     </div>
 
     <!-- Result -->
-    <div id="result" style="display:none;"></div>
+    <div id="result"></div>
 
-    <!-- Confetti Canvas -->
-    <canvas id="confetti-canvas" style="position:fixed;pointer-events:none;z-index:9999;top:0;left:0;width:100%;height:100%;"></canvas>
+    <!-- Background Slideshow -->
+    <div class="bg-slideshow" id="bgSlideshow"></div>
   </div>
-
-  <!-- confetti lib -->
-  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
   <script>
   (function(){
+    // Background images for slideshow
+    const bgImages = [
+      'https://kharis.org/wp-content/uploads/2022/10/PHOTO-2022-10-11-00-55-32-Copy-2.jpg',
+      'https://kharis.org/wp-content/uploads/2022/11/260807749_4700323106680619_8475937483849630905_n.jpg',
+      'https://kharis.org/wp-content/uploads/2024/06/IMG-20240615-WA0032.jpg',
+      'https://kharis.org/wp-content/uploads/2022/10/PHOTO-2022-10-13-12-43-46.jpg',
+      'https://kharis.org/wp-content/uploads/2022/10/PHOTO-2022-10-13-12-43-59.jpg',
+      'https://kharis.org/wp-content/uploads/2022/10/PHOTO-2022-10-13-12-43-50.jpg',
+      'https://store.khar.is/cdn/shop/files/67200988_2450803551632597_4416726294536912896_n_142db4d4-d790-4773-9f17-1714e2b327a4.jpg?v=1626368354',
+      'https://kharis.org/wp-content/uploads/2022/10/PHOTO-2022-09-30-17-34-12-Copy-2.jpg',
+      'https://kharis.org/wp-content/uploads/2022/10/PHOTO-2022-09-30-17-34-12-Copy.jpg',
+      'https://kharis.org/wp-content/uploads/2022/10/PHOTO-2022-09-30-17-33-42-Copy-10.jpg',
+      'https://kharis.org/wp-content/uploads/2024/06/IMG-20240615-WA0036.jpg',
+      'https://kharis.org/wp-content/uploads/2023/10/IMG_5389-scaled.jpeg',
+      'https://kharis.org/wp-content/uploads/2022/10/PHOTO-2022-09-30-17-33-41-Copy-2.jpg',
+      'https://kharis.org/wp-content/uploads/2024/06/IMG-20240615-WA0033.jpg',
+      'https://kharis.org/wp-content/uploads/2024/05/601A6563-scaled.jpg',
+      'https://kharis.org/wp-content/uploads/2023/10/PHOTO-2023-10-18-15-59-596.jpg',
+      'https://kharis.org/wp-content/uploads/2024/05/601A9547-scaled.jpg',
+    ];
 
-    /* ----------------- Helpers ----------------- */
-    function escapeHtml(str){
-      if(!str && str !== 0) return '';
-      return String(str)
-        .replace(/&/g,'&amp;')
-        .replace(/</g,'&lt;')
-        .replace(/>/g,'&gt;')
-        .replace(/"/g,'&quot;')
-        .replace(/'/g,'&#39;');
+    // Initialize background slideshow
+    function initSlideshow() {
+      const slideshow = document.getElementById('bgSlideshow');
+      
+      // Create slide elements
+      bgImages.forEach((img, index) => {
+        const slide = document.createElement('div');
+        slide.className = 'bg-slide';
+        slide.style.backgroundImage = `url('${img}')`;
+        if (index === 0) slide.classList.add('active');
+        slideshow.appendChild(slide);
+      });
+      
+      // Start slideshow
+      let currentSlide = 0;
+      const slides = document.querySelectorAll('.bg-slide');
+      
+      setInterval(() => {
+        slides[currentSlide].classList.remove('active');
+        currentSlide = (currentSlide + 1) % slides.length;
+        slides[currentSlide].classList.add('active');
+      }, 5000);
     }
 
-    // Simple safe "sleep" for nicer sequences (non-blocking)
-    function wait(ms){ return new Promise(res=>setTimeout(res, ms)); }
+const SHEET_URL = "https://script.google.com/macros/s/AKfycbznl6ltl0ydLSa7STMUPQPguZ5Bf74aEuTMH6mhUwk88ee8xsaMA6QtVvBXclxUor28/exec";
+
+const translations = {
+      en: {
+        title: "Discover Your Kharis Department",
+        subtitle: "Answer a few short questions to see where your gifting fits best.",
+        namePlaceholder: "Enter your Fullname",
+        branchPlaceholder: "Select your branch",
+        startButton: "Start Quiz",
+        questionCounter: "Question {current} of {total}",
+        nextButton: "Next",
+        backButton: "← Back",
+        resultsTitle: "{name} ({branch}) — Your Top Departments",
+        exploreButton: "Explore All Departments",
+        restartButton: "Start Over",
+        allDepartments: "All Departments",
+        backToResults: "Back to Results",
+       answerPlaceholder: "Type your answer here...",
+        errorMsg: "Please type something so we can figure this out 😊",
+        noResults: "No department scores were recorded — but don't worry. Try again and add a few keywords in your answers (e.g., \"I love to sing\", \"I like planning events\").",
+        // Quiz questions
+        questions: [
+          { q: "When faced with chaos, what grounds you most?", s: "1 Corinthians 14:33 – For God is not a God of disorder but of peace." },
+          { q: "How do you prefer to impact others?", s: "Matthew 5:16 – Let your light shine before others." },
+          { q: "In a group, you are the one who...", s: "Romans 12:6 – We have different gifts, according to the grace given to each of us." },
+          { q: "Which part of a service do you naturally notice first?", s: "Ephesians 6:7 – Serve wholeheartedly, as if you were serving the Lord." },
+          { q: "If you could lead something, what would it be?", s: "Joshua 1:9 – Be strong and courageous." },
+          { q: "When someone is hurting, what do you naturally do?", s: "2 Corinthians 1:4 – God comforts us… so we can comfort others." },
+          { q: "What excites you most: creating, organising, helping, or sharing boldly?", s: "Colossians 3:23 – Whatever you do, work at it with all your heart." },
+          { q: "If you had one talent to use for God, what would it be?", s: "1 Peter 4:10 – Each of you should use whatever gift you have received to serve others." }
+        ],
+        // Department data
+        departments: {
+          "Administration": { desc: "Organised, detail-oriented, and dependable individuals who excel at planning, coordinating, and ensuring smooth operations.", scripture: "1 Corinthians 14:40 - 'But everything should be done in a fitting and orderly way.'" },
+          "Children's Department": { desc: "Patient, nurturing, and joyful people who love teaching, encouraging, and inspiring children to grow in faith.", scripture: "Matthew 19:14 - 'Let the little children come to me, and do not hinder them, for the kingdom of heaven belongs to such as these.'" },
+          "Design": { desc: "Innovative and artistic individuals who bring ideas to life visually, using creativity to communicate messages with excellence.", scripture: "Exodus 35:35 - 'He has filled them with skill to do all kinds of work as engravers, designers, embroiderers... and weavers.'" },
+          "Drama": { desc: "Expressive, imaginative, and bold individuals who use storytelling and performance to communicate the gospel in powerful ways.", scripture: "Matthew 13:34 - 'Jesus spoke all these things to the crowd in parables; he did not say anything to them without using a parable.'" },
+          "Hospitality": { desc: "Warm, welcoming, and caring people who create an atmosphere of love and comfort for everyone they serve.", scripture: "1 Peter 4:9 - 'Offer hospitality to one another without grumbling.'" },
+          "Host Team": { desc: "Friendly, approachable, and service-minded individuals who make everyone feel seen, valued, and at home.", scripture: "Romans 15:7 - 'Therefore welcome one another as Christ has welcomed you, for the glory of God.'" },
+          "Production": { desc: "Diligent and detail-oriented individuals who ensure the smooth running of services through technical excellence and behind-the-scenes support.", scripture: "Colossians 3:23 - 'Whatever you do, work at it with all your heart, as working for the Lord, not for human masters.'" },
+          "Music": { desc: "Passionate, skilled, and Spirit-filled individuals who use their gifts to lead others into worship and the presence of God.", scripture: "Psalm 95:1-2 - 'Come, let us sing for joy to the Lord; let us shout aloud to the Rock of our salvation. Let us come before him with thanksgiving and extol him with music and song.'" },
+          "Follow Up": { desc: "Caring, attentive, and relational individuals who enjoy guiding new believers, building trust, and encouraging spiritual growth.", scripture: "Matthew 28:19 - 'Therefore go and make disciples of all nations, baptizing them in the name of the Father and of the Son and of the Holy Spirit.'" },
+          "New Believers": { desc: "Patient, supportive, and mentoring-minded people who love helping others understand faith and grow spiritually.", scripture: "Colossians 1:28 - 'He is the one we proclaim, admonishing and teaching everyone with all wisdom, so that we may present everyone fully mature in Christ.'" },
+          "Evangelism": { desc: "Bold, outgoing, and confident individuals who love sharing the gospel and engaging others with compassion and courage.", scripture: "Mark 16:15 - 'He said to them, \"Go into all the world and preach the gospel to all creation.\"'" },
+          "Sanctuary Keepers": { desc: "Responsible, conscientious, and detail-focused people who take pride in maintaining a clean and orderly worship environment.", scripture: "1 Corinthians 3:16 - 'Don't you know that you yourselves are God's temple and that God's Spirit dwells in your midst?'" },
+          "Set-up": { desc: "Hands-on, practical, and solution-oriented individuals who enjoy preparing spaces, managing logistics, and problem-solving.", scripture: "Nehemiah 4:6 - 'So we rebuilt the wall till all of it reached half its height, for the people worked with all their heart.'" },
+          "Social Media": { desc: "Creative, tech-savvy, and communicative personalities who enjoy storytelling and engaging communities online.", scripture: "Psalm 19:14 - 'May these words of my mouth and this meditation of my heart be pleasing in your sight, Lord, my Rock and my Redeemer.'" },
+          "Sound": { desc: "Technically-minded, attentive, and precise individuals who thrive on managing audio and creating seamless sound experiences.", scripture: "1 Corinthians 14:7 - 'If even lifeless instruments give sounds, how will anyone know what is played?'" },
+          "Uniform": { desc: "Meticulous, disciplined, and detail-oriented people who value presentation, consistency, and high standards.", scripture: "1 Timothy 4:12 - 'Don't let anyone look down on you because you are young, but set an example for the believers in speech, in conduct, in love, in faith and in purity.'" },
+          "Ushers": { desc: "Friendly, approachable, and service-minded individuals who enjoy guiding, assisting, and caring for people in practical ways.", scripture: "Hebrews 13:17 - 'Have confidence in your leaders and submit to their authority, because they keep watch over you as those who must give an account.'" },
+          "Welfare": { desc: "Compassionate, empathetic, and generous-hearted people who are motivated to help those in need and provide support.", scripture: "Galatians 6:2 - 'Carry each other's burdens, and in this way you will fulfill the law of Christ.'" },
+          "Security": { desc: "Alert, responsible, and protective individuals who prioritise safety and ensure a secure environment for others.", scripture: "Proverbs 27:12 - 'The prudent see danger and take refuge, but the simple keep going and pay the penalty.'" },
+          "Media": { desc: "Creative and tech-savvy individuals who capture, design, and share content that spreads the message with clarity and excellence, making the vision visible to all.", scripture: "Habakkuk 2:2 - 'Write the vision; make it plain on tablets, so he may run who reads it.'" },
+          "Spoken Word": { desc: "Expressive and creative individuals who use poetry, spoken word, or performance art to inspire and communicate the gospel with emotion and impact.", scripture: "Psalm 19:14 - 'May the words of my mouth and the meditation of my heart be pleasing in your sight, O Lord.'" }
+        }
+      },
+      fr: {
+        title: "Découvrez Votre Département Kharis",
+        subtitle: "Répondez à quelques questions pour voir où vos dons s'intègrent le mieux.",
+        namePlaceholder: "Entrez votre nom complet",
+        branchPlaceholder: "Sélectionnez votre branche",
+        startButton: "Commencer le Quiz",
+        questionCounter: "Question {current} sur {total}",
+        nextButton: "Suivant",
+        backButton: "← Retour",
+        resultsTitle: "{name} ({branch}) — Vos Départements Principaux",
+        exploreButton: "Explorer Tous les Départements",
+        restartButton: "Recommencer",
+        answerPlaceholder: "Tapez votre réponse ici...",
+        allDepartments: "Tous les Départements",
+        backToResults: "Retour aux Résultats",
+        errorMsg: "Veuillez taper quelque chose pour que nous puissions comprendre 😊",
+        noResults: "Aucun score de département n'a été enregistré - mais ne vous inquiétez pas. Réessayez et ajoutez quelques mots-clés dans vos réponses (par exemple, \"J'aime chanter\", \"J'aime organiser des événements\").",
+        questions: [
+          { q: "Face au chaos, qu'est-ce qui vous ancre le plus?", s: "1 Corinthiens 14:33 - Car Dieu n'est pas un Dieu de désordre, mais de paix." },
+          { q: "Comment préférez-vous avoir un impact sur les autres?", s: "Matthieu 5:16 - Que votre lumière luise ainsi devant les hommes." },
+          { q: "Dans un groupe, vous êtes celui qui...", s: "Romains 12:6 - Nous avons des dons différents, selon la grâce qui nous a été accordée." },
+          { q: "Quelle partie d'un service remarquez-vous naturellement en premier?", s: "Éphésiens 6:7 - Servez de bon cœur, comme pour le Seigneur." },
+          { q: "Si vous pouviez diriger quelque chose, ce serait quoi?", s: "Josué 1:9 - Fortifie-toi et prends courage." },
+          { q: "Quand quelqu'un souffre, que faites-vous naturellement?", s: "2 Corinthiens 1:4 - Dieu nous console... afin que nous puissions consoler les autres." },
+          { q: "Qu'est-ce qui vous passionne le plus : créer, organiser, aider ou partager hardiment?", s: "Colossiens 3:23 - Tout ce que vous faites, faites-le de bon cœur." },
+          { q: "Si vous aviez un talent à utiliser pour Dieu, ce serait lequel?", s: "1 Pierre 4:10 - Que chacun de vous mette au service des autres le don qu'il a reçu." }
+        ],
+        departments: {
+          "Administration": { desc: "Personnes organisées, soucieuses du détail et fiables qui excellent dans la planification, la coordination et assurent le bon déroulement des opérations.", scripture: "1 Corinthiens 14:40 - 'Mais que tout se passe dans l'ordre.'" },
+          "Département des Enfants": { desc: "Personnes patientes, nourricières et joyeuses qui aiment enseigner, encourager et inspirer les enfants à grandir dans la foi.", scripture: "Matthieu 19:14 - 'Laissez les petits enfants, et ne les empêchez pas de venir à moi; car le royaume des cieux est pour ceux qui leur ressemblent.'" },
+          "Design": { desc: "Personnes innovantes et artistiques qui donnent vie visuellement aux idées, utilisant la créativité pour communiquer des messages avec excellence.", scripture: "Exode 35:35 - 'Il les a remplis d'intelligence, pour exécuter tous les ouvrages.'" },
+          "Drame": { desc: "Personnes expressives, imaginatives et audacieuses qui utilisent la narration et la performance pour communiquer l'évangile de manière puissante.", scripture: "Matthieu 13:34 - 'Jésus parla en paraboles, et il ne leur parlait point sans parabole.'" },
+          "Hospitalité": { desc: "Personnes chaleures, accueillantes et attentionnées qui créent une atmosphère d'amour et de confort pour tous ceux qu'elles servent.", scripture: "1 Pierre 4:9 - 'Exercez l'hospitalité les uns envers les autres sans murmures.'" },
+          "Équipe d'Accueil": { desc: "Personnes amicales, abordables et axées sur le service qui font que chacun se sent vu, valorisé et comme à la maison.", scripture: "Romains 15:7 - 'Accueillez-vous donc les uns les autres, comme Christ vous a accueillis, pour la gloire de Dieu.'" },
+          "Production": { desc: "Personnes diligentes et soucieuses du détail qui assurent le bon déroulement des services grâce à l'excellence technique et au soutien en coulisses.", scripture: "Colossiens 3:23 - 'Tout ce que vous faites, faites-le de bon cœur, comme pour le Seigneur.'" },
+          "Musique": { desc: "Personnes passionnées, compétentes et remplies de l'Esprit qui utilisent leurs dons pour conduire les autres dans l'adoration et la présence de Dieu.", scripture: "Psaume 95:1-2 - 'Venez, chantons avec allégresse à l'Éternel! Poussons des cris de joie vers le rocher de notre salut. Allons au-devant de lui avec des louanges.'" },
+          "Suivi": { desc: "Personnes attentionnées, attentives et relationnelles qui aiment guider les nouveaux croyants, établir la confiance et encourager la croissance spirituelle.", scripture: "Matthieu 28:19 - 'Allez, faites de toutes les nations des disciples.'" },
+          "Nouveaux Croyants": { desc: "Personnes patientes, solidaires et mentorales qui aident les autres à comprendre la faith et à grandir spirituellement.", scripture: "Colossiens 1:28 - 'C'est lui que nous annonçons, exhortant tout homme, et instruisant tout homme en toute sagesse.'" },
+          "Évangélisation": { desc: "Personnes audacieuses, extraverties et confiantes qui aiment partager l'évangile et s'engager avec compassion et courage.", scripture: "Marc 16:15 - 'Allez dans tout le monde, et prêchez la bonne nouvelle à toute la création.'" },
+          "Gardiens du Sanctuaire": { desc: "Personnes responsables, consciencieuses et soucieuses du détail qui sont fières de maintenir un environnement de culte propre et ordonné.", scripture: "1 Corinthiens 3:16 - 'Ne savez-vous pas que vous êtes le temple de Dieu, et que l'Esprit de Dieu habite en vous?'" },
+          "Installation": { desc: "Personnes pratiques, manuelles et orientées vers les solutions qui aiment préparer les espaces, gérer la logistique et résoudre les problèmes.", scripture: "Néhémie 4:6 - 'Nous rebâtîmes la muraille, qui fut partout achevée jusqu'à la moitié de sa hauteur.'" },
+          "Médias Sociaux": { desc: "Personnalités créatives, technophiles et communicatives qui aiment raconter des histoires et engager les communautés en ligne.", scripture: "Psaume 19:14 - 'Que les paroles de ma bouche et la méditation de my cœur soient agréables devant toi.'" },
+          "Son": { desc: "Personnes techniquement douées, attentives et précises qui excellent dans la gestion audio et la création d'expériences sonores fluides.", scripture: "1 Corinthiens 14:7 - 'Si les objets inanimés qui rendent un son ne rendent pas des sons distincts, comment reconnaître ce qui est joué?'" },
+          "Uniforme": { desc: "Personnes méticuleuses, disciplinées et soucieuses du détail qui valorisent la présentation, la cohérence et les normes élevées.", scripture: "1 Timothée 4:12 - 'Que personne ne méprise ta jeunesse; mais sois un modèle pour les fidèles.'" },
+          "Huissiers": { desc: "Personnes amicales, abordables et axées sur le service qui aiment guider, aider et prendre soin des gens de manière pratique.", scripture: "Hébreux 13:17 - 'Obéissez à vos conducteurs et ayez pour eux de la déférence.'" },
+          "Bien-être": { desc: "Personnes compatissantes, empathiques et généreuses qui sont motivées à aider ceux dans le besoin et à fournir un soutien.", scripture: "Galates 6:2 - 'Portez les fardeaux les uns des autres.'" },
+          "Sécurité": { desc: "Personnes vigilantes, responsables et protectrices qui priorisent la sécurité et assurent un environnement sécurisé pour les autres.", scripture: "Proverbes 27:12 - 'L'homme prudent voit le mal et se cache; Les simples avancent et sont punis.'" },
+          "Médias": { desc: "Personnes créatives et technophiles qui capturent, conçoivent et partagent du contenu qui diffuse le message avec clarté et excellence, rendant la vision visible à tous.", scripture: "Habacuc 2:2 - 'Écris la vision, Grave-la sur des tables.'" },
+          "Parole Parlée": { desc: "Personnes expressives et créatives qui utilisent la poésie, la parole parlée ou l'art performatif pour inspirer et communiquer l'évangile avec émotion et impact.", scripture: "Psaume 19:14 - 'Que les paroles de ma bouche et la méditation de mon cœur soient agréables devant toi.'" }
+        }
+      },
+      es: {
+        title: "Descubre Tu Departamento en Kharis",
+        subtitle: "Responde algunas preguntas para ver dónde encajan mejor tus dones.",
+        namePlaceholder: "Ingresa tu nombre completo",
+        branchPlaceholder: "Selecciona tu sucursal",
+        startButton: "Comenzar Quiz",
+        questionCounter: "Pregunta {current} de {total}",
+        nextButton: "Siguiente",
+        backButton: "← Atrás",
+        resultsTitle: "{name} ({branch}) — Tus Departamentos Principales",
+        exploreButton: "Explorar Todos los Departamentos",
+        restartButton: "Comenzar de Nuevo",
+        answerPlaceholder: "Escribe tu respuesta aquí...",
+        allDepartments: "Todos los Departamentos",
+        backToResults: "Volver a Resultados",
+        errorMsg: "Por favor escribe algo para que podamos entender 😊",
+        noResults: "No se registraron puntajes de departamento, pero no te preocupes. Intenta nuevamente y agrega algunas palabras clave en tus respuestas (por ejemplo, \"Me encanta cantar\", \"Me gusta planificar eventos\").",
+        questions: [
+          { q: "Cuando te enfrentas al caos, ¿qué te da más estabilidad?", s: "1 Corintios 14:33 – Porque Dios no es Dios de confusión, sino de paz." },
+          { q: "¿Cómo prefieres impactar a los demás?", s: "Mateo 5:16 – Así alumbre vuestra luz delante de los hombres." },
+          { q: "En un grupo, eres el que...", s: "Romanos 12:6 – Tenemos dones diferentes, según la gracia que nos es dada." },
+          { q: "¿Qué parte de un servicio notas naturalmente primero?", s: "Efesios 6:7 – Sirviendo de buena voluntad, como al Señor y no a los hombres." },
+          { q: "Si pudieras liderar algo, ¿qué sería?", s: "Josué 1:9 – Esfuérzate y sé valiente." },
+          { q: "Cuando alguien está sufriendo, ¿qué haces naturalmente?", s: "2 Corintios 1:4 – Dios nos consuela... para que podamos consolar a otros." },
+          { q: "¿Qué te emociona más: crear, organizar, ayudar o compartir con valentía?", s: "Colosenses 3:23 – Todo lo que hagáis, hacedlo de corazón." },
+          { q: "Si tuvieras un talento para usar para Dios, ¿cuál sería?", s: "1 Pedro 4:10 – Cada uno según el don que ha recibido, minístrelo a los otros." }
+        ],
+        departments: {
+          "Administración": { desc: "Personas organizadas, detallistas y confiables que sobresalen en planificación, coordinación y garantizan operaciones fluidas.", scripture: "1 Corintios 14:40 - 'Pero hágase todo decentemente y con orden.'" },
+          "Departamento Infantil": { desc: "Personas pacientes, nurturing y alegres que aman enseñar, animar e inspirar a los niños a crecer en la fe.", scripture: "Mateo 19:14 - 'Dejad a los niños venir a mí, y no se lo impidáis; porque de los tales es el reino de los cielos.'" },
+          "Diseño": { desc: "Personas innovadoras y artísticas que dan vida visualmente a las ideas, utilizando la creatividad para comunicar mensajes con excelencia.", scripture: "Éxodo 35:35 - 'Los ha llenado de sabiduría de corazón para que hagan toda obra de arte.'" },
+          "Drama": { desc: "Personas expresivas, imaginativas y audaces que utilizan la narración de historias y la performance para comunicar el evangelio de manera poderosa.", scripture: "Mateo 13:34 - 'Todo esto habló Jesús por parábolas a la gente, y sin parábolas no les hablaba.'" },
+          "Hospitalidad": { desc: "Personas cálidas, acogedoras y atentas que crean una atmósfera de amor y confort para todos los que sirven.", scripture: "1 Pedro 4:9 - 'Sed hospitalarios los unos con los otros sin murmuraciones.'" },
+          "Equipo de Anfitriones": { desc: "Personas amigables, accesibles y orientadas al servicio que hacen que todos se sientan vistos, valorados y como en casa.", scripture: "Romanos 15:7 - 'Por tanto, recibíos los unos a los otros, como también Cristo nos recibió, para gloria de Dios.'" },
+          "Producción": { desc: "Personas diligentes y detallistas que aseguran el buen funcionamiento de los servicios mediante la excelencia técnica y el apoyo detrás de escena.", scripture: "Colosenses 3:23 - 'Y todo lo que hagáis, hacedlo de corazón, como para el Señor y no para los hombres.'" },
+          "Música": { desc: "Personas apasionadas, talentosas y llenas del Espíritu que utilizan sus dones para guiar a otros en la adoración y la presencia de Dios.", scripture: "Salmos 95:1-2 - 'Venid, aclamemos alegremente a Jehová; Cantemos con júbilo a la roca de nuestra salvación. Lleguemos ante su presencia con alabanza; Aclamémosle con cánticos.'" },
+          "Seguimiento": { desc: "Personas atentas, cuidadosas y relacionales que disfrutan guiando a nuevos creyentes, construyendo confianza y alentando el crecimiento espiritual.", scripture: "Mateo 28:19 - 'Por tanto, id, y haced discípulos a todas las naciones.'" },
+          "Nuevos Creyentes": { desc: "Personas pacientes, solidarias y con mentalidad de mentoría que aman ayudar a otros a comprender la fe y crecer espiritualmente.", scripture: "Colosenses 1:28 - 'A quien anunciamos, amonestando a todo hombre, y enseñando a todo hombre en toda sabiduría.'" },
+          "Evangelismo": { desc: "Personas audaces, extrovertidas y seguras que aman compartir el evangelio y relacionarse con otros con compasión y coraje.", scripture: "Marcos 16:15 - 'Y les dijo: Id por todo el mundo y predicad el evangelio a toda criatura.'" },
+          "Guardianes del Santuario": { desc: "Personas responsables, concienzudas y enfocadas en los detalles que se enorgullecen de mantener un ambiente de adoración limpio y ordenado.", scripture: "1 Corintios 3:16 - '¿No sabéis que sois templo de Dios, y que el Espíritu de Dios mora en vosotros?'" },
+          "Preparación": { desc: "Personas prácticas, manuales y orientadas a soluciones que disfrutan preparando espacios, gestionando logística y resolviendo problemas.", scripture: "Nehemías 4:6 - 'Edificamos, pues, el muro, y toda la muralla fue terminada hasta la mitad de su altura.'" },
+          "Redes Sociales": { desc: "Personalidades creativas, conocedoras de la tecnología y comunicativas que disfrutan contar historias y involucrar comunidades en línea.", scripture: "Salmos 19:14 - 'Sean gratos los dichos de mi boca y la meditación de mi corazón delante de ti.'" },
+          "Sonido": { desc: "Personas técnicas, atentas y precisas que prosperan gestionando audio y creando experiencias sonoras fluidas.", scripture: "1 Corintios 14:7 - 'Si los instrumentos musicales no emiten sonidos distintos, ¿cómo se sabrá lo que se toca?'" },
+          "Uniforme": { desc: "Personas meticulosas, disciplinadas y detallistas que valoran la presentación, consistencia y altos estándares.", scripture: "1 Timoteo 4:12 - 'Ninguno tenga en poco tu juventud, sino sé ejemplo de los creyentes en palabra, conducta, amor, espíritu, fe y pureza.'" },
+          "Ujieres": { desc: "Personas amigables, accesibles y orientadas al servicio que disfrutan guiando, ayudando y cuidando a las personas de manera práctica.", scripture: "Hebreos 13:17 - 'Obedeced a vuestros pastores, y sujetaos a ellos.'" },
+          "Bienestar": { desc: "Personas compasivas, empáticas y generosas que están motivadas a ayudar a los necesitados y brindar apoyo.", scripture: "Gálatas 6:2 - 'Sobrellevad los unos las cargas de los otros.'" },
+          "Seguridad": { desc: "Personas alertas, responsables y protectoras que priorizan la seguridad y aseguran un ambiente seguro para los demás.", scripture: "Proverbios 27:12 - 'El avisado ve el mal y se esconde; Mas los simples pasan y reciben el daño.'" },
+          "Medios": { desc: "Personas creativas y conocedoras de la tecnología que capturan, diseñan y comparten contenido que difunde el mensaje con claridad y excelencia, haciendo visible la visión para todos.", scripture: "Habacuc 2:2 - 'Escribe la visión, y declárala en tablas.'" },
+          "Palabra Hablada": { desc: "Personas expresivas y creativas que utilizan poesía, palabra hablada o arte performativo para inspirar y comunicar el evangelio con emoción e impacto.", scripture: "Salmos 19:14 - 'Sean gratos los dichos de mi boca y la meditación de mi corazón delante de ti.'" }
+        }
+      },
+// Add this after the existing Spanish translation in your translations object
+de: {
+  title: "Entdecke Dein Kharis Department",
+  subtitle: "Beantworte ein paar kurze Fragen, um zu sehen, wo deine Begabungen am besten passen.",
+  namePlaceholder: "Gib deinen vollständigen Namen ein",
+  branchPlaceholder: "Wähle deine Zweigstelle",
+  startButton: "Quiz starten",
+  questionCounter: "Frage {current} von {total}",
+  nextButton: "Weiter",
+  backButton: "← Zurück",
+  resultsTitle: "{name} ({branch}) — Deine Top-Departments",
+  exploreButton: "Alle Departments erkunden",
+answerPlaceholder: "Geben Sie hier Ihre Antwort ein...",
+  restartButton: "Von vorne beginnen",
+  allDepartments: "Alle Departments",
+  backToResults: "Zurück zu den Ergebnissen",
+  errorMsg: "Bitte gib etwas ein, damit wir das herausfinden können 😊",
+  noResults: "Es wurden keine Department-Punkte aufgezeichnet - aber keine Sorge. Versuche es erneut und füge einige Schlüsselwörter in deine Antworten ein (z.B. \"Ich liebe es zu singen\", \"Ich mag die Planung von Veranstaltungen\").",
+  questions: [
+    { q: "Was gibt dir in chaotischen Situationen am meisten Halt?", s: "1 Korinther 14:33 - Denn Gott ist nicht ein Gott der Unordnung, sondern des Friedens." },
+    { q: "Wie möchtest du andere am liebsten beeinflussen?", s: "Matthäus 5:16 - So lasst euer Licht leuchten vor den Leuten." },
+    { q: "In einer Gruppe bist du die Person, die...", s: "Römer 12:6 - Wir haben verschiedene Gaben, nach der Gnade, die uns gegeben ist." },
+    { q: "Welchen Teil eines Gottesdienstes bemerkst du zuerst?", s: "Epheser 6:7 - Dient von Herzen, als dem Herrn und nicht den Menschen." },
+    { q: "Wenn du etwas leiten könntest, was wäre das?", s: "Josua 1:9 - Sei getrost und unverzagt." },
+    { q: "Was tust du natürlich, wenn jemand verletzt ist?", s: "2 Korinther 1:4 - Gott tröstet uns… damit wir andere trösten können." },
+    { q: "Was begeistert dich am meisten: erschaffen, organisieren, helfen oder mutig teilen?", s: "Kolosser 3:23 - Alles, was ihr tut, das tut von Herzen als dem Herrn und nicht den Menschen." },
+    { q: "Wenn du ein Talent für Gott einsetzen könntest, welches wäre das?", s: "1 Petrus 4:10 - Dient einander, ein jeder mit der Gabe, die er empfangen hat." }
+  ],
+  departments: {
+    "Administration": { desc: "Organisierte, detailorientierte und zuverlässige Personen, die sich in Planung, Koordination und reibungslosen Abläufen auszeichnen.", scripture: "1 Korinther 14:40 - 'Alles geschehe aber anständig und in Ordnung.'" },
+    "Kinderdepartment": { desc: "Geduldige, fürsorgliche und fröhliche Menschen, die es lieben, Kinder zu unterrichten, zu ermutigen und im Glauben zu inspirieren.", scripture: "Matthäus 19:14 - 'Lasset die Kindlein zu mir kommen und wehret ihnen nicht; denn solcher ist das Reich Gottes.'" },
+    "Design": { desc: "Innovative und künstlerische Personen, die Ideen visuell zum Leben erwecken und Kreativität nutzen, um Botschaften exzellent zu kommunizieren.", scripture: "2 Mose 35:35 - 'Er hat sie mit Weisheit des Herzens erfüllt, zu machen allerlei Werk.'" },
+    "Drama": { desc: "Ausdrucksstarke, einfallsreiche und mutige Personen, die Geschichtenerzählen und Performance nutzen, um das Evangelium auf kraftvolle Weise zu kommunizieren.", scripture: "Matthäus 13:34 - 'Dies alles redete Jesus in Gleichnissen zu dem Volk, und ohne Gleichnisse redete er nichts zu ihnen.'" },
+    "Gastfreundschaft": { desc: "Warme, einladende und fürsorgliche Menschen, die eine Atmosphäre der Liebe und des Komforts für alle schaffen, denen sie dienen.", scripture: "1 Petrus 4:9 - 'Seid gastfrei untereinander ohne Murren.'" },
+    "Host Team": { desc: "Freundliche, zugängliche und serviceorientierte Personen, die jeden gesehen, wertgeschätzt und willkommen fühlen lassen.", scripture: "Römer 15:7 - 'Darum nehmet einander an, gleichwie Christus euch angenommen hat zu Gottes Lob.'" },
+    "Produktion": { desc: "Fleißige und detailorientierte Personen, die für den reibungslosen Ablauf der Gottesdienste durch technische Exzellenz und Unterstützung hinter den Kulissen sorgen.", scripture: "Kolosser 3:23 - 'Alles, was ihr tut, das tut von Herzen als dem Herrn und nicht den Menschen.'" },
+    "Musik": { desc: "Leidenschaftliche, talentierte und geisterfüllte Personen, die ihre Gaben nutzen, um andere in die Anbetung und Gegenwart Gottes zu führen.", scripture: "Psalm 95:1-2 - 'Kommt, lasst uns dem HERRN frohlocken und jauchzen dem Hort unsres Heils! Lasst uns mit Danken vor sein Angesicht kommen und mit Psalmen ihm jauchzen!'" },
+    "Nachfolge": { desc: "Fürsorgliche, aufmerksame und beziehungsorientierte Personen, die neue Gläubige begleiten, Vertrauen aufbauen und geistliches Wachstum fördern.", scripture: "Matthäus 28:19 - 'Darum gehet hin und machet zu Jüngern alle Völker.'" },
+    "Neue Gläubige": { desc: "Geduldige, unterstützende und mentororientierte Menschen, die anderen helfen, den Glauben zu verstehen und geistlich zu wachsen.", scripture: "Kolosser 1:28 - 'Den verkündigen wir und ermahnen alle Menschen und lehren alle Menschen in aller Weisheit.'" },
+    "Evangelisation": { desc: "Mutige, extrovertierte und selbstbewusste Personen, die das Evangelium teilen und sich mit Mitgefühl und Mut auf andere einlassen.", scripture: "Markus 16:15 - 'Und er sprach zu ihnen: Gehet hin in alle Welt und predigt das Evangelium aller Kreatur.'" },
+    "Heiligtumshüter": { desc: "Verantwortungsbewusste, gewissenhafte und detailorientierte Menschen, die stolz darauf sind, eine saubere und geordnete Anbetungsumgebung zu erhalten.", scripture: "1 Korinther 3:16 - 'Wisset ihr nicht, dass ihr Gottes Tempel seid und der Geist Gottes in euch wohnt?'" },
+    "Aufbau": { desc: "Praktische, handwerklich begabte und lösungsorientierte Personen, die Räume vorbereiten, Logistik managen und Probleme lösen.", scripture: "Nehemia 4:6 - 'So bauten wir die Mauer und fügten alles zusammen bis an die halbe Höhe.'" },
+    "Soziale Medien": { desc: "Kreative, technikaffine und kommunikative Persönlichkeiten, die Geschichtenerzählen und Online-Communitys lieben.", scripture: "Psalm 19:14 - 'Die Worte meines Mundes und das Sinnen meines Herzens gefalle dir, HERR.'" },
+    "Ton": { desc: "Technisch versierte, aufmerksame und präzise Personen, die sich mit Audiomanagement und der Erstellung nahtloser Klangerlebnisse auskennen.", scripture: "1 Korinther 14:7 - 'Wenn auch die leblosen Dinge, die Töne von sich geben, es sei eine Flöte oder Harfe: wenn sie nicht unterschiedliche Töne geben, wie kann man erkennen, was gepfiffen oder geharft wird?'" },
+    "Uniform": { desc: "Akribische, disziplinierte und detailorientierte Menschen, die Wert auf Präsentation, Konsistenz und hohe Standards legen.", scripture: "1 Timotheus 4:12 - 'Niemand verachte deine Jugend; sondern sei ein Vorbild den Gläubigen.'" },
+    "Ordner": { desc: "Freundliche, zugängliche und serviceorientierte Personen, die Menschen auf praktische Weise führen, helfen und betreuen.", scripture: "Hebräer 13:17 - 'Gehorchet euren Lehrern und folget ihnen.'" },
+    "Wohlfahrt": { desc: "Mitfühlende, einfühlsame und großzügige Menschen, die motiviert sind, Bedürftigen zu helfen und Unterstützung zu bieten.", scripture: "Galater 6:2 - 'Einer trage des anderen Last.'" },
+    "Sicherheit": { desc: "Wachsame, verantwortungsbewusste und schützende Personen, die Sicherheit priorisieren und eine sichere Umgebung für andere gewährleisten.", scripture: "Sprüche 27:12 - 'Der Kluge sieht das Unglück und verbirgt sich; die Unverständigen gehen hindurch und werden gestraft.'" },
+    "Medien": { desc: "Kreative und technikaffine Personen, die Inhalte erfassen, gestalten und teilen, die die Botschaft mit Klarheit und Exzellenz verbreiten und die Vision für alle sichtbar machen.", scripture: "Habakuk 2:2 - 'Schreibe das Gesicht und male es auf eine Tafel.'" },
+    "Spoken Word": { desc: "Ausdrucksstarke und kreative Personen, die Poesie, gesprochenes Wort oder Performance-Kunst nutzen, um zu inspirieren und das Evangelium mit Emotion und Wirkung zu kommunizieren.", scripture: "Psalm 19:14 - 'Die Worte meines Mundes und das Sinnen meines Herzens gefalle dir, HERR.'" }
+  }
+},
+tw: {
+  title: "Hwehwɛ Wo Kharis Apam No",
+  subtitle: "Buae nsɛm a ɛyɛ kakraa bi na wuhu baabi a wo donno betumi ayɛ adwuma.",
+  namePlaceholder: "Twerɛ wo din nyinaa",
+  branchPlaceholder: "Paw wo branch",
+  startButton: "Hyɛ ase",
+  questionCounter: "Asɛm {current} fi {total} mu",
+  nextButton: "Ɛdi akyire",
+  backButton: "← San kɔ",
+answerPlaceholder: "Geben Sie hier Ihre Antwort ein...",
+  resultsTitle: "{name} ({branch}) — Wo Apam a Ɛsɛ Sen Biara",
+  exploreButton: "Hwehwɛ Apam Nyinaa",
+  restartButton: "San Hyɛ Ase",
+  allDepartments: "Apam Nyinaa",
+  backToResults: "San Kɔ Nsɛm a Wonya No Hɔ",
+  errorMsg: "Yɛsrɛ wo, twerɛ biribi sɛ yɛbetumi ahu eyi 😊",
+  noResults: "Wɔnnyae apam biara nkyerɛ - nanso yɛmma haw. San hyɛ ase na fa nsɛm titiriw bi aka wo nsɛm mu (sɛ, \"Medɔ dwom\", \"M'ani gye adeyɛ ahyehyɛ ho\").",
+  questions: [
+    { q: "Sɛ biribi yɛ fɔ owura a, dɛn na ɛma wo yɛ dwo?", s: "1 Korintofo 14:33 – Onyankopɔn nyɛ ɔbarima a ne dwumadi yɛ fɔ, na mmom ɔno ne Asomdwoe." },
+    { q: "Wo pɛ sɛ woyɛ adwuma wɔ nnipa so dɛn?", s: "Mateo 5:16 – Momma hom kan mmerɛw sɛnea ɛbɛyɛ a nnipa behu." },
+    { q: "Wɔ kuw bi mu no, wone nea...", s: "Romafo 12:6 – Yɛwɔ adom ahorow, sɛdeɛ yɛde adom a yɛde ma no." },
+    { q: "Dɛn na wohu no koraa wɔ ahyɛase wɔ asɔre dwumadie mu?", s: "Efesofo 6:7 – Som sɛ Awurade na woresom, na mmom nnipa." },
+    { q: "Sɛ wobetumi de biribi di dwuma a, ebɛyɛ dɛn?", s: "Yosua 1:9 – Yɛ obi a wowo bold ne courage." },
+    { q: "Sɛ obi awu ne ho a, dɛn na woyɛ koraa?", s: "2 Korintofo 1:4 – Onyankopɔn de ahotɔ ma yɛ... sɛ yɛbetumi de ahotɔ ama afoforo." },
+    { q: "Dɛn na ɛma wo ani gye sen biara: sɛdeɛ wubɛyɛ ade, sɛdeɛ wubɛhyehyɛ, sɛdeɛ wubɛboa, anaa sɛdeɛ wubɛkyerɛ ade bold?", s: "Kolosefo 3:23 – Biribiara a moyɛ, momma mommɔ ne ho mmɔden sɛ Awurade na moreyɛ, na mmom nnipa." },
+    { q: "Sɛ wowɔ donno baako a wobetumi de ayɛ adwuma ma Onyankopɔn a, ebɛyɛ dɛn?", s: "1 Petro 4:10 – Momma obiara de adom a wɔde ma no nso mma afoforo." }
+  ],
+  departments: {
+    "Administration": { desc: "Nnipa a wɔyɛ organized, wɔhwɛ details, na wɔwɔ trust a wɔtumi yɛ planning, coordination, na wɔahwɛ sɛ adwuma nyinaa kɔ yie.", scripture: "1 Korintofo 14:40 - 'Nanso biribiara nyinaa mfa nhyɛ order mu.'" },
+    "Nnipa Nkumaa Apam": { desc: "Nnipa a wɔwɔ abotɔrɛ, wɔhwɛ nnipa so, na wɔani gye a wɔpɛ sɛ wɔkyerɛkyerɛ, wɔhyɛ nnipa nkumaa den, na wɔma wɔn ani gye sɛ wɔnyɛ adwuma wɔ gyidie mu.", scripture: "Mateo 19:14 - 'Momma mma nkumaa no mmra me nkyɛn na mmmfa hɔ mmpa wɔn; efirisɛ ɔman a ɛwɔ soro no wɔ wɔn.'" },
+    "Design": { desc: "Nnipa a wɔwɔ creativity, wɔyɛ ade fɛfɛɛfɛ, na wɔde wɔn adwene bɔ adwene a ɛyɛ fɛ na ɛkyerɛ ade kɛse.", scripture: "Exodus 35:35 - 'Ɔde wisdom ahyɛ wɔn akoma mu sɛ wɔnyɛ adwuma ahodoɔ nyinaa.'" },
+    "Drama": { desc: "Nnipa a wɔtumi kasa yie, wɔwɔ adwene, na wɔyɛ bold a wɔde storytelling ne performance kyerɛ asɛmpa wɔ kwan a ɛyɛ anigyeɛ mu.", scripture: "Mateo 13:34 - 'Yesu kaa eyi nyinaa kyerɛɛ nnipa no wɔ anansesɛm mu; na ɔnnyae ankasa nkyerɛɛ wɔn biribiara.'" },
+    "Hospitality": { desc: "Nnipa a wɔyɛ fɛ, wɔaccɛ, na wɔhwɛ nnipa so a wɔbɔ ɔkwan a ɛyɛ dɔ ne ahotɔ ma obiara a wɔsom wɔn.", scripture: "1 Petro 4:9 - 'Montie nnipa a wɔba mo nkyɛn ahyɛ mo nkuran.'" },
+    "Host Team": { desc: "Nnipa a wɔyɛ friendly, approachable, na wɔpɛ sɛ wɔsom a wɔma obiara ahwɛ sɛ wɔahu wɔn, wɔahyɛ wɔn anuonyam, na wɔate wɔn wɔ fie.", scripture: "Romafo 15:7 - 'Enti montie nnipa a wɔba mo nkyɛn sɛ Kristo atie mo, sɛdeɛ ɛbɛyɛ a Onyankopɔn anya anuonyam.'" },
+    "Production": { desc: "Nnipa a wɔyɛ diligent ne detail-oriented a wɔhwɛ sɛ asɔre dwumadie kɔ yie wɔ technical excellence ne behind-the-scenes support so.", scripture: "Kolosefo 3:23 - 'Biribiara a moyɛ, momma mommɔ ne ho mmɔden sɛ Awurade na moreyɛ, na mmom nnipa.'" },
+    "Music": { desc: "Nnipa a wɔwɔ passion, wɔwɔ skill, na Holy Spirit di wɔn so a wɔde wɔn donno di dwuma sɛ wɔkɔkɔ nnipa kɔɔ worship ne Onyankopɔn anim.", scripture: "Dwom 95:1-2 - 'Mommra, yɛnnwom mmoroso mma Awurade; yɛnto nwenee mma yɛn nkwagyeɛ no bo. Yɛmmra ne anim mma no ayɛyie na yɛnnwom mmoroso mma no.'" },
+    "Follow Up": { desc: "Nnipa a wɔhwɛ nnipa so, wɔtie, na wɔpɛ sɛ wɔdi nnipa nkyɛn a wɔpɛ sɛ wɔkɔkɔ agyananom foforo, wɔsii trust, na wɔhyɛ wɔn den sɛ wɔnyɛ adwuma wɔ spiritual growth mu.", scripture: "Mateo 28:19 - 'Enti mommɛkɔ na moyɛ nnipa nyinaa ayɛ disciples.'" },
+    "Nnipa Foforo a Wɔagye Wɔn Di": { desc: "Nnipa a wɔwɔ abotɔrɛ, wɔboa, na wɔpɛ sɛ wɔkyerɛkyerɛ a wɔpɛ sɛ wɔboa afoforo sɛ wɔnte gyidie ase na wɔnyɛ adwuma wɔ spiritual growth mu.", scripture: "Kolosefo 1:28 - 'Ɔno na yɛrekɛkyerɛ, yɛretu fo, na yɛrekyerɛkyerɛ nnipa nyinaa wɔ nyansa nyinaa mu.'" },
+    "Evangelism": { desc: "Nnipa a wɔyɛ bold, outgoing, na confident a wɔpɛ sɛ wɔkyerɛ asɛmpa na wɔde compassion ne courage di nnipa nkyɛn.", scripture: "Mark 16:15 - 'Ɔka kyerɛɛ wɔn sɛ, Mommɛkɔ wiase nyinaa na mokyerɛ asɛmpa no kɔ nnipa nyinaa nkyɛn.'" },
+    "Sanctuary Keepers": { desc: "Nnipa a wɔyɛ responsible, conscientious, na detail-focused a wɔyɛ fɛ sɛ wɔhwɛ sɛ worship baabi no yɛ fɛ, clean, na order wɔ mu.", scripture: "1 Korintofo 3:16 - 'Annyɛ mo nhunu sɛ moyɛ Onyankopɔn tempol na Onyankopɔn Sunsum tena mo mu?'" },
+    "Set-up": { desc: "Nnipa a wɔyɛ hands-on, practical, na solution-oriented a wɔpɛ sɛ wɔhyehyɛ beaeɛ, wɔhwɛ logistics, na wɔpaw nsɛnnahɔ.", scripture: "Nehemia 4:6 - 'Enti yɛsii soro no bio, na soro no nyinaa kɔɔ ne fa.'" },
+    "Social Media": { desc: "Nnipa a wɔwɔ creativity, wɔnim technology, na wɔtumi kasa yie a wɔpɛ sɛ wɔkyerɛ anansesɛm na wɔde online communities di dwuma.", scripture: "Dwom 19:14 - 'Momma me n'anom nsɛm ne m'akoma adwene nnyɛ biribi a ɛyɛ fɛ wɔ wo anim, Awurade.'" },
+    "Sound": { desc: "Nnipa a wɔnim technical ade, wɔtie, na wɔyɛ precise a wɔpɛ sɛ wɔhwɛ audio na wɔyɛ sound experiences a ɛyɛ smooth.", scripture: "1 Korintofo 14:7 - 'Sɛ nnwonkoro a enni nkwa no mma nnwon a ɛyɛ soronko a, obi betumi ahu dɛn na wɔreto?'" },
+    "Uniform": { desc: "Nnipa a wɔyɛ meticulous, disciplined, na detail-oriented a wɔhwɛ presentation, consistency, ne high standards.", scripture: "1 Timoteo 4:12 - 'Mma obiara nnye wo ntoatoa so wɔ wo ntorɔ mu; na mmom yɛ nhwɛsoɔ ma agyidifoɔ no wɔ nsɛm, wɔ nneyɛe, wɔ dɔ, wɔ sunsum, wɔ gyidie, ne wɔ fɛfɛɛfɛ mu.'" },
+    "Ushers": { desc: "Nnipa a wɔyɛ friendly, approachable, na service-minded a wɔpɛ sɛ wɔkɔkɔ nnipa, wɔboa, na wɔhwɛ nnipa so wɔ kwan a ɛyɛ practical.", scripture: "Hebrifo 13:17 - 'Montie mo akandifoɔ na monyɛ sɛdeɛ wɔrekyerɛ; efirisɛ wɔhwɛ mo kra sɛ wɔbɛgye mo asɛm.'" },
+    "Welfare": { desc: "Nnipa a wɔwɔ compassion, empathy, na generous heart a wɔpɛ sɛ wɔboa nnipa a wɔwɔ ahokyere na wɔde support ma.", scripture: "Galatifo 6:2 - 'Mommɔ awerɛhow ahorow di dwuma.'" },
+    "Security": { desc: "Nnipa a wɔyɛ alert, responsible, na protective a wɔhwɛ safety na wɔhwɛ sɛ baabi a wɔwɔ no safe ma afoforo.", scripture: "Mmebusɛm 27:12 - 'Onipa a ɔyɛ onyansafoɔ hunu ahɔhɔ na ɔkɔto ho; na mmom nnipa a wɔnnyɛ nteaseɛ no kɔ so na wɔhunu amane.'" },
+    "Media": { desc: "Nnipa a wɔwɔ creativity ne technology nimdeɛ a wɔtumi capture, design, na share content a ɛkyerɛ asɛm no wɔ clarity ne excellence mu, na ɛma vision no yɛ ade a obiara betumi ahu.", scripture: "Habakkuk 2:2 - 'Twerɛ vision no; na ma no yɛ ade a ɛyɛ kɛseɛ wɔ tablet so, sɛdeɛ ɔbɛtumi ahu na ɔdannan.'" },
+    "Spoken Word": { desc: "Nnipa a wɔtumi kasa yie na wɔwɔ creativity a wɔde poetry, spoken word, anaa performance art di dwuma sɛ wɔhyɛ nnipa den na wɔkyerɛ asɛmpa wɔ emotion ne impact mu.", scripture: "Dwom 19:14 - 'Momma me n'anom nsɛm ne m'akoma adwene nnyɛ biribi a ɛyɛ fɛ wɔ wo anim, Awurade.'" }
+  }
+},
+sv: {
+  title: "Upptäck Ditt Kharis Department",
+  subtitle: "Svara på några korta frågor för att se var dina gåvor passar bäst.",
+  namePlaceholder: "Ange ditt fullständiga namn",
+  branchPlaceholder: "Välj din församling",
+  startButton: "Starta Quiz",
+  questionCounter: "Fråga {current} av {total}",
+  nextButton: "Nästa",
+  backButton: "← Tillbaka",
+answerPlaceholder: "Skriv ditt svar här...",
+  resultsTitle: "{name} ({branch}) — Dina Bästa Department",
+  exploreButton: "Utforska Alla Department",
+  restartButton: "Börja Om",
+  allDepartments: "Alla Department",
+  backToResults: "Tillbaka till Resultat",
+  errorMsg: "Vänligen skriv något så vi kan lista ut detta 😊",
+  noResults: "Inga departmentpoäng registrerades - men oroa dig inte. Försök igen och lägg till några nyckelord i dina svar (t.ex. \"Jag älskar att sjunga\", \"Jag gillar att planera evenemang\").",
+  questions: [
+    { q: "När du möter kaos, vad ger dig mest grund?", s: "1 Korinthier 14:33 – Ty Gud är inte en oredans Gud, utan en fridens Gud." },
+    { q: "Hur föredrar du att påverka andra?", s: "Matteus 5:16 – Låta så edert ljus lysa inför människorna." },
+    { q: "I en grupp är du den som...", s: "Romarbrevet 12:6 – Vi har olika gåvor, efter den nåd som är given oss." },
+    { q: "Vilken del av en gudstjänst märker du naturligt först?", s: "Efesierbrevet 6:7 – Tjäna av hjärtat, som Herren och icke människor." },
+    { q: "Om du kunde leda något, vad skulle det vara?", s: "Josua 1:9 – Var stark och modig." },
+    { q: "När någon är sårad, vad gör du naturligt?", s: "2 Korinthier 1:4 – Gud tröstar oss… så att vi kan trösta andra." },
+    { q: "Vad exciterar dig mest: att skapa, organisera, hjälpa eller dela frimodigt?", s: "Kolosserbrevet 3:23 – Allt vad I gören, det gören av hjärtat, såsom Herren och icke människor." },
+    { q: "Om du hade en talang att använda för Gud, vad skulle det vara?", s: "1 Petrusbrevet 4:10 – Var och en må förvalta den nådegåva han har fått, till att tjäna varandra." }
+  ],
+  departments: {
+    "Administration": { desc: "Organiserade, detaljorienterade och pålitliga personer som utmärker sig på planering, koordinering och säkerställer smidiga operationer.", scripture: "1 Korinthier 14:40 - 'Men allt skall ske hederligt och ordningsfullt.'" },
+    "Barnavdelning": { desc: "Tålmodiga, omhändertagande och glada personer som älskar att lära, uppmuntra och inspirera barn att växa i tron.", scripture: "Matteus 19:14 - 'Låten barnen komma till mig, och förmenen dem det icke; ty sådana hör Guds rike till.'" },
+    "Design": { desc: "Innovativa och konstnärliga personer som för idéer till liv visuellt, använder kreativitet för att kommunicera budskap med excellens.", scripture: "2 Mosebok 35:35 - 'Han har fyllt dem med vishet att göra allahanda arbete.'" },
+    "Drama": { desc: "Uttrycksfulla, fantasifulla och modiga personer som använder berättande och uppträdande för att kommunicera evangeliet på kraftfulla sätt.", scripture: "Matteus 13:34 - 'Allt detta talade Jesus i liknelser till folket, och utan liknelse talade han intet till dem.'" },
+    "Gästfrihet": { desc: "Varma, välkomnande och omtänksamma personer som skapar en atmosfär av kärlek och komfort för alla de tjänar.", scripture: "1 Petrusbrevet 4:9 - 'Varen gästfria mot varandra utan knot.'" },
+    "Värdteam": { desc: "Vänliga, tillgängliga och serviceinriktade personer som får alla att känna sig sedda, värderade och hemma.", scripture: "Romarbrevet 15:7 - 'Därför, taken emot varandra, såsom ock Kristus har tagit emot eder, till Guds ära.'" },
+    "Produktion": { desc: "Flitiga och detaljorienterade personer som säkerställer smidig gudstjänst genom teknisk excellens och stöd bakom kulisserna.", scripture: "Kolosserbrevet 3:23 - 'Och allt vad I gören, det gören av hjärtat, såsom Herren och icke människor.'" },
+    "Musik": { desc: "Passionerade, skickliga och andefyllda personer som använder sina gåvor för att leda andra in i tillbedjan och Guds närvaro.", scripture: "Psaltaren 95:1-2 - 'Kommen, låtom oss glädjossignade till Herren, låtom oss jubla till vår frälsnings klippa. Låtom oss träda fram inför hans ansikte med tacksägelse, låtom oss jubla till honom med psalmer.'" },
+    "Uppföljning": { desc: "Omtänksamma, uppmärksamma och relationsinriktade personer som gillar att guida nya troende, bygga förtroende och uppmuntra andlig tillväxt.", scripture: "Matteus 28:19 - 'Gån therefore ut och gören alla folk till lärjungar.'" },
+    "Nya Troende": { desc: "Tålmodiga, stödjande och mentorinriktade personer som älskar att hjälpa andra att förstå tron och växa andligt.", scripture: "Kolosserbrevet 1:28 - 'Honom förkunna vi, förmana var och en och lära var och en i all vishet.'" },
+    "Evangelisation": { desc: "Modiga, utåtriktade och självsäkra personer som älskar att dela evangeliet och engagera andra med medkänsla och mod.", scripture: "Markus 16:15 - 'Och han sade till dem: Gån ut i hela världen och prediken evangelium för all skapad varelse.'" },
+    "Sanctuary Keepers": { desc: "Ansvarstagande, samvetsgranna och detaljinriktade personer som är stolta över att upprätthålla en ren och ordnad tillbedjansmiljö.", scripture: "1 Korinthier 3:16 - 'Veten I icke att I ären Guds tempel och att Guds Ande bor i eder?'" },
+    "Uppbyggnad": { desc: "Praktiska, hands-on och lösningsorienterade personer som gillar att förbereda utrymmen, hantera logistik och problemlösning.", scripture: "Nehemja 4:6 - 'Så byggde vi muren, och hela muren blev färdig till hälften.'" },
+    "Sociala Medier": { desc: "Kreativa, tekniskt kunniga och kommunikativa personligheter som gillar berättande och engagerande communitys online.", scripture: "Psaltaren 19:14 - 'Låt min muns ord och min hjärtas tanke vara täckliga inför dig, Herre.'" },
+    "Ljud": { desc: "Tekniskt sinnade, uppmärksamma och precisa personer som trivs med att hantera ljud och skapa sömlösa ljudupplevelser.", scripture: "1 Korinthier 14:7 - 'Om ock livlösa ting, som giva ljud, vare sig flöjt eller harpa, icke giva skilda toner, huru skall man veta vad som spelas på flöjten eller harpan?'" },
+    "Uniform": { desc: "Meticulösa, disciplinerade och detaljorienterade personer som värderar presentation, konsistens och höga standarder.", scripture: "1 Timotheusbrevet 4:12 - 'Låt ingen förakta din ungdomskraft, utan var en föredöme för de troende.'" },
+    "Väktare": { desc: "Vänliga, tillgängliga och serviceinriktade personer som gillar att guida, assistera och ta hand om människor på praktiska sätt.", scripture: "Hebreerbrevet 13:17 - 'Hörsammen edra ledare och varen dem underdåniga.'" },
+    "Välfärd": { desc: "Medkännande, empatiska och generösa personer som är motiverade att hjälpa behövande och ge stöd.", scripture: "Galaterbrevet 6:2 - 'Bären varandras bördor.'" },
+    "Säkerhet": { desc: "Vaksamma, ansvarstagande och skyddande personer som prioriterar säkerhet och säkerställer en säker miljö för andra.", scripture: "Ordspråksboken 27:12 - 'Den kloke ser faran och gömmer sig, men de enfaldiga gå fram och lida straff.'" },
+    "Media": { desc: "Kreativa och tekniskt kunniga personer som fångar, designer och delar innehåll som sprider budskapet med klarhet och excellens, gör visionen synlig för alla.", scripture: "Habackuk 2:2 - 'Skriv synen och måla den på tavlor.'" },
+    "Spoken Word": { desc: "Uttrycksfulla och kreativa personer som använder poesi, spoken word eller performancekonst för att inspirera och kommunicera evangeliet med känsla och impact.", scripture: "Psaltaren 19:14 - 'Låt min muns ord och min hjärtas tanke vara täckliga inför dig, Herre.'" }
+  }
+},
+gd: {
+  title: "Lorg do Roinn Kharis",
+  subtitle: "Freagair beagan cheistean gus faicinn càite a bheil do thàlantan a' freagairt as fheàrr.",
+  namePlaceholder: "Cuir a-steach d' ainm slàn",
+  branchPlaceholder: "Tagh do mheur",
+  startButton: "Tòisich an Cuis",
+  questionCounter: "Ceist {current} à {total}",
+  nextButton: "Air adhart",
+  backButton: "← Air ais",
+answerPlaceholder: "Taing do fhreagairt an-seo...",
+  resultsTitle: "{name} ({branch}) — Na Roinnean as Fheàrr Agad",
+  exploreButton: "Rannsaich a h-uile Roinn",
+  restartButton: "Tòisich às ùr",
+  allDepartments: "A h-uile Roinn",
+  backToResults: "Air ais gu na Toraidhean",
+  errorMsg: "Cuir rudeigin sìos mas e do thoil e gus an cuir sinn seo ri chèile 😊",
+  noResults: "Cha deach sgòr roinn a chlàradh - ach na gabh dragh. Feuch a-rithist agus cuir faclan-luirg ris do fhreagairtean (me \"Is toigh leam seinn\", \"Is toigh leam tachartasan a phlanadh\").",
+  questions: [
+    { q: "Nuair a tha an sabaid ann, dè an rud as treasa a chuireas talamh fo do chasan?", s: "1 Corintianaich 14:33 - Oir chan e Dia urchraid no mhì-rian ach sìth." },
+    { q: "Ciamar as fheàrr leat buaidh a thoirt air daoine eile?", s: "Mata 5:16 - Lasadh mar sin do sholas air beulaibh dhaoine." },
+    { q: "Ann an buidheann, is tusa an neach a...", s: "Ròmanaich 12:6 - A rèir na gràis a bhuilneadh dhuinn, tha diofar thìodhlacan againn." },
+    { q: "Dè an pàirt de sheirbheis a tha thu a' mothachadh an toiseach?", s: "Ephesianaich 6:7 - A' seirbheisachadh le deòin na chridhe, mar don Tighearna." },
+    { q: "Nam faodadh tu rud a stiùireadh, dè bhiodh ann?", s: "Iosua 1:9 - Bi làidir agus misneachail." },
+    { q: "Nuair a tha cuideigin ann an cràdh, dè nì thu gu nàdarra?", s: "2 Corintianaich 1:4 - Tha Dia a' comhfhurtachdainn... gus an comhfhurtachd sinn daoine eile." },
+    { q: "Dè as brosnachaiche dhut: a bhith a' cruthachadh, ag' eagrachadh, a' cuideachadh, no a' roinn gu dàn?", s: "Colosianaich 3:23 - Ge b'e dè nì sibh, obaraibh e leis an fhìor chridhe." },
+    { q: "Nam biodh aon tàlant agad airson a chleachdadh airson Dhè, dè bhiodh ann?", s: "1 Peadar 4:10 - Cleachdadh gach neach an tìodhlac a fhuair e a sheirbheis dhaoine eile." }
+  ],
+  departments: {
+    "Rianachd": { desc: "Daoine eagraichte, fiosrachail agus earbsach a tha air an làimh le planadh, co-òrdanachadh, agus a' dèanamh cinnteach gu bheil gnìomhachd a' dol air adhart gu rèidh.", scripture: "1 Corintianaich 14:40 - 'Ach dèanar a h-uile càil ann an modh iomchaidh agus òrdail.'" },
+    "Roinn nan Clann": { desc: "Daoine foighidneach, altraimail agus aoibhneach a tha dèidheil air teagasg, brosnachadh, agus bhrosnachadh chloinn fàs ann an creideamh.", scripture: "Mata 19:14 - 'Leigibh leis na naoidhean teachd thugam, agus na bacamaid iad.'" },
+    "Dealbhadh": { desc: "Daoine ùr-ghnàthach agus ealanta a bheir beatha do bheachdan gu lèirsinneach, a' cleachdadh cruthachalachd gus teachdaireachdan a chur an cèill le sàr-mhathais.", scripture: "Ecsodus 35:35 - 'Lìon e iad le tuigse chridhe.'" },
+    "Dràma": { desc: "Daoine faireachail, mac-meanmnach agus dànach a chleachdas sgeulachd agus coileanadh gus an soisgeul a chur an cèill ann an dòighean cumhachdach.", scripture: "Mata 13:34 - 'Labhair Iosa na nithean sin uile ann an cosamhlachdan ris an t-sluagh.'" },
+    "Aoigheachd": { desc: "Daoine blàth, fàilteach agus cùramach a chruthaicheas àile de ghràdh agus de chomhfhurtachd dha a h-uile duine a bhios iad a' frithealadh.", scripture: "1 Peadar 4:9 - 'Dèanaibh aoigheachd dha chèile gun gràinsinn.'" },
+    "Sgioba Fàilte": { desc: "Daoine càirdeil, so-ruigsinneach agus seirbheis-minded a nì a h-uile duine a' faireachdainn air am faicinn, air an luach, agus aig an taigh.", scripture: "Ròmanaich 15:7 - 'Uime sin gabhaibh ribh a chèile, mar a ghabh Crìosd ribhse.'" },
+    "Riochdachadh": { desc: "Daoine dìcheallach agus fiosrachail a bheir cinnteach gu bheil seirbheisean a' dol air adhart gu rèidh tro mhathais teignigeach agus taic cùl-ùrlar.", scripture: "Colosianaich 3:23 - 'Ge b'e dè nì sibh, obaraibh e leis an fhìor chridhe.'" },
+    "Ceòl": { desc: "Daoine dìoghrasach, sgileil agus spioradail a chleachdas an tìodhlacan gus daoine eile a stiùireadh a-steach do adhradh agus do làthaireachd Dhè.", scripture: "Salm 95:1-2 - 'Thigibh, gabhaibh aoibhneas don Tighearna.'" },
+    "Leanmhainn": { desc: "Daoine cùramach, faiceallach agus dàimheach a tha a' còrdadh ri stiùireadh luchd-creidimh ùra, a' togail earbsa, agus a' brosnachadh fàis spioradail.", scripture: "Mata 28:19 - 'Imichibh uime sin, dèanaibh deisealan de na h-uile chinneadh.'" },
+    "Luchd-creidimh Ùra": { desc: "Daoine foighidneach, taiceil agus menteoraichte a tha dèidheil air cuideachadh le daoine eile creideamh a thuigsinn agus fàs spioradail.", scripture: "Colosianaich 1:28 - 'San tì sin tha sinn a' searmonachadh.'" },
+    "Soisgeulachd": { desc: "Daoine dàna, fàsaidh agus misneachail a tha dèidheil air an soisgeul a roinn agus a' dol an sàs le daoine eile le co-fhaireachdainn agus misneachd.", scripture: "Marc 16:15 - 'Agus thubhairt e riu, Imichibh air feadh an t-saoghail uile.'" },
+    "Luchd-gleidhidh an Naomh-lann": { desc: "Daoine cùramach, cogaiseach agus fiosrachail a tha moiteil a' cumail àrainneachd adhraidh glan agus òrdail.", scripture: "1 Corintianaich 3:16 - 'Nach eil fhios agaibh gur sibhse teampall Dhè?'" },
+    "Suidheachadh": { desc: "Daoine practaigeach, làimhseachail agus fuasgladh-minded a tha a' còrdadh ri àiteachan ullachadh, riaghladh loidhnichean, agus fuasgladh fhadartan.", scripture: "Nèhemiah 4:6 - 'Agus thog sinn am balla.'" },
+    "Meadhain Shòisealta": { desc: "Daoine cruthachail, teicneòlasach agus conaltraidh a tha a' còrdadh ri sgeulachd agus a' dol an sàs le coimhearsnachdan air-loidhne.", scripture: "Salm 19:14 - 'Biodh briathran mo bheòil.'" },
+    "Fuaim": { desc: "Daoine teignigeach, faiceallach agus mionaideach a nì soirbheachas le riaghladh claisneachd agus a' cruthachadh eòlasan fuaim rèidh.", scripture: "1 Corintianaich 14:7 - 'Ma bhios na h-innealan neo-bheò sin a' dèanamh fuaime.'" },
+    "Èideadh": { desc: "Daoine mionaideach, smachdail agus fiosrachail a tha a' cur luach air taisbeanadh, cunbhalachd, agus inbhean àrda.", scripture: "1 Timoteus 4:12 - 'Na leig le duine sam bith do òige a dhiùltadh.'" },
+    "Ushers": { desc: "Daoine càirdeil, so-ruigsinneach agus seirbheis-minded a tha a' còrdadh ri stiùireadh, cuideachadh, agus cùram air daoine ann an dòighean practaigeach.", scripture: "Eabhraich 13:17 - 'Thèidibh le ur luchd-stiùiridh.'" },
+    "Leas": { desc: "Daoine co-fhaireachdainneach, iochdmhor agus fialaidh a tha air an brosnachadh gus cuideachadh le daoine a tha ann an èiginn agus taic a thoirt seachad.", scripture: "Galatianaich 6:2 - 'Giùlainibh eallaidean a chèile.'" },
+    "Tèarainteachd": { desc: "Daoine faiceallach, cùramach agus dìonach a chuireas tèarainteachd air beulaibh agus a bheir cinnteach gu bheil àrainneachd sàbhailte airson daoine eile.", scripture: "Gnàth-fhacail 27:12 - 'An duine glic a chì an cunnart.'" },
+    "Meadhain": { desc: "Daoine cruthachail agus teicneòlasach a ghlacas, a dhealbhas, agus a roinn susbaint a sgaoileas an teachdaireachd le soilleireachd agus sàr-mhathais, a' dèanamh an lèirsinn so-lèir dha na h-uile.", scripture: "Habacuc 2:2 - 'Sgrìobh an sealladh.'" },
+    "Facal Labhairte": { desc: "Daoine faireachail agus cruthachail a chleachdas bàrdachd, facal labhairte, no ealain coileanaidh gus brosnachadh agus an soisgeul a chur an cèill le faireachdainn agus buaidh.", scripture: "Salm 19:14 - 'Biodh briathran mo bheòil.'" }
+  }
+}
+      // Additional languages would follow the same pattern
+    };
 
     /* --------------- DOM refs ------------------ */
     const startScreenEl = document.getElementById('start-screen');
@@ -222,395 +817,649 @@
     const progressBar = document.getElementById('progress');
     const usernameInput = document.getElementById('username');
     const branchSelect = document.getElementById('branch');
-    const confettiCanvas = document.getElementById('confetti-canvas');
     const modeBtn = document.getElementById('modeBtn');
-
-    /* --------------- Config ------------------ */
-    const SHEET_URL = "https://script.google.com/macros/s/AKfycbxz0F4EoHusuSJ_e04shOtOrg9Hh8ijkSwgYQBE81yS7vD7p-6kUoOwj9P_mD5UcYNh/exec"; // replace if needed
-
-    /* --------------- Data: quizzes ------------------ */
-    const quizzes = {
-      kharis: [
-        { q:"When faced with chaos, what grounds you most?", s:"1 Corinthians 14:33 – For God is not a God of disorder but of peace." },
-        { q:"How do you prefer to impact others?", s:"Matthew 5:16 – Let your light shine before others." },
-        { q:"In a group, you are the one who...", s:"Romans 12:6 – We have different gifts, according to the grace given to each of us." },
-        { q:"How do you love to serve in the Kingdom?", s:"Ephesians 6:7 – Serve wholeheartedly, as if you were serving the Lord." },
-        { q:"If you could lead something, what would it be?", s:"Joshua 1:9 – Be strong and courageous." },
-        { q:"When someone is hurting, what do you naturally do?", s:"2 Corinthians 1:4 – God comforts us… so we can comfort others." },
-        { q:"What excites you most: creating, organising, helping, or sharing boldly?", s:"Colossians 3:23 – Whatever you do, work at it with all your heart." },
-        { q:"If you had one talent to use for God, what would it be?", s:"1 Peter 4:10 – Each of you should use whatever gift you have received to serve others." }
-      ]
-    };
-
-    /* --------------- Department data (full) ------------------ */
-    const deptData = {
-      "Administration": { desc: "Organised, detail-oriented, and dependable individuals who excel at planning, coordinating, and ensuring smooth operations.", scripture: "1 Corinthians 14:40 - 'But everything should be done in a fitting and orderly way.'" },
-      "Children's Department": { desc: "Patient, nurturing, and joyful people who love teaching, encouraging, and inspiring children to grow in faith.", scripture: "Matthew 19:14 - 'Let the little children come to me, and do not hinder them, for the kingdom of heaven belongs to such as these.'" },
-      "Design": { desc: "Innovative and artistic individuals who bring ideas to life visually, using creativity to communicate messages with excellence.", scripture: "Exodus 35:35 - 'He has filled them with skill to do all kinds of work as engravers, designers, embroiderers... and weavers.'" },
-      "Drama": { desc: "Expressive, imaginative, and bold individuals who use storytelling and performance to communicate the gospel in powerful ways.", scripture: "Matthew 13:34 - 'Jesus spoke all these things to the crowd in parables; he did not say anything to them without using a parable.'" },
-      "Hospitality": { desc: "Warm, welcoming, and caring people who create an atmosphere of love and comfort for everyone they serve.", scripture: "1 Peter 4:9 - 'Offer hospitality to one another without grumbling.'" },
-      "Host Team": { desc: "Friendly, approachable, and service-minded individuals who make everyone feel seen, valued, and at home.", scripture: "Romans 15:7 - 'Therefore welcome one another as Christ has welcomed you, for the glory of God.'" },
-      "Production": { desc: "Diligent and detail-oriented individuals who ensure the smooth running of services through technical excellence and behind-the-scenes support.", scripture: "Colossians 3:23 - 'Whatever you do, work at it with all your heart, as working for the Lord, not for human masters.'" },
-      "Music": { desc: "Passionate, skilled, and Spirit-filled individuals who use their gifts to lead others into worship and the presence of God.", scripture: "Psalm 95:1-2 - 'Come, let us sing for joy to the Lord; let us shout aloud to the Rock of our salvation. Let us come before him with thanksgiving and extol him with music and song.'" },
-      "Follow Up": { desc: "Caring, attentive, and relational individuals who enjoy guiding new believers, building trust, and encouraging spiritual growth.", scripture: "Matthew 28:19 - 'Therefore go and make disciples of all nations, baptizing them in the name of the Father and of the Son and of the Holy Spirit.'" },
-      "New Believers": { desc: "Patient, supportive, and mentoring-minded people who love helping others understand faith and grow spiritually.", scripture: "Colossians 1:28 - 'He is the one we proclaim, admonishing and teaching everyone with all wisdom, so that we may present everyone fully mature in Christ.'" },
-      "Evangelism": { desc: "Bold, outgoing, and confident individuals who love sharing the gospel and engaging others with compassion and courage.", scripture: "Mark 16:15 - 'He said to them, “Go into all the world and preach the gospel to all creation.”'" },
-      "Sanctuary Keepers": { desc: "Responsible, conscientious, and detail-focused people who take pride in maintaining a clean and orderly worship environment.", scripture: "1 Corinthians 3:16 - 'Don’t you know that you yourselves are God’s temple and that God’s Spirit dwells in your midst?'" },
-      "Set-up": { desc: "Hands-on, practical, and solution-oriented individuals who enjoy preparing spaces, managing logistics, and problem-solving.", scripture: "Nehemiah 4:6 - 'So we rebuilt the wall till all of it reached half its height, for the people worked with all their heart.'" },
-      "Social Media": { desc: "Creative, tech-savvy, and communicative personalities who enjoy storytelling and engaging communities online.", scripture: "Psalm 19:14 - 'May these words of my mouth and this meditation of my heart be pleasing in your sight, Lord, my Rock and my Redeemer.'" },
-      "Sound": { desc: "Technically-minded, attentive, and precise individuals who thrive on managing audio and creating seamless sound experiences.", scripture: "1 Corinthians 14:7 - 'If even lifeless instruments give sounds, how will anyone know what is played?'" },
-      "Uniform": { desc: "Meticulous, disciplined, and detail-oriented people who value presentation, consistency, and high standards.", scripture: "1 Timothy 4:12 - 'Don’t let anyone look down on you because you are young, but set an example for the believers in speech, in conduct, in love, in faith and in purity.'" },
-      "Ushers": { desc: "Friendly, approachable, and service-minded individuals who enjoy guiding, assisting, and caring for people in practical ways.", scripture: "Hebrews 13:17 - 'Have confidence in your leaders and submit to their authority, because they keep watch over you as those who must give an account.'" },
-      "Welfare": { desc: "Compassionate, empathetic, and generous-hearted people who are motivated to help those in need and provide support.", scripture: "Galatians 6:2 - 'Carry each other’s burdens, and in this way you will fulfill the law of Christ.'" },
-      "Security": { desc: "Alert, responsible, and protective individuals who prioritise safety and ensure a secure environment for others.", scripture: "Proverbs 27:12 - 'The prudent see danger and take refuge, but the simple keep going and pay the penalty.'" },
-      "Media": { desc: "Creative and tech-savvy individuals who capture, design, and share content that spreads the message with clarity and excellence, making the vision visible to all.", scripture: "Habakkuk 2:2 - 'Write the vision; make it plain on tablets, so he may run who reads it.'" }
-    };
-
-    /* --------------- Keywords used to score answers ------------------ */
-    const deptKeywords = {
-      "Administration":["organise","organize","plan","admin","schedule","manage","coordinat"],
-      "Children's Department":["child","kids","children","youth","play","story","teac","kid"],
-      "Design":["design","art","creative","graphic","visual","paint","illustrat"],
-      "Drama":["drama","act","acting","performance","play","stage","role"],
-      "Hospitality":["welcome","serve","hospitality","host","help","refreshments","tea","coffee"],
-      "Host Team":["host","coordinate","guide","greet","welcome","usher"],
-      "Production":["production","stage","lighting","cue","run","stagehand","crew"],
-      "Music":["sing","music","play","instrument","worship","vocal","choir"],
-      "Follow Up":["connect","follow up","contact","message","call","visit","reach out"],
-      "New Believers":["teach","mentor","discipleship","mentor","grow","new believer","bible study"],
-      "Evangelism":["share","evangelism","preach","gospel","bold","outreach","invite"],
-      "Sanctuary Keepers":["clean","maintain","space","tidy","cleaning","order"],
-      "Set-up":["setup","equipment","arrange","assemble","load","lift"],
-      "Social Media":["social","media","online","content","post","instagram","facebook","tiktok","youtube"],
-      "Sound":["audio","mic","speaker","sound","mix","mixer","monitor"],
-      "Uniform":["attire","uniform","clothes","appearance","presentation"],
-      "Ushers":["guide","usher","assist","seat","help","directions"],
-      "Welfare":["care","serve","help","support","pastoral","counsel","welfare"],
-      "Security":["protect","security","safe","safety","guard","watch"],
-      "Media":["software","tech","captur","capture","video","camera","edit","photo","film"]
-    };
+    const languageSelect = document.getElementById('languageSelect');
 
     /* --------------- State ------------------ */
     let username = "";
     let branch = "";
-    let currentQuiz = null;
     let currentQ = 0;
     let questionHistory = [];
+    let currentLanguage = 'en';
     let deptScores = {};
-    let traits = { creative:0, organised:0, bold:0, servant:0 };
-    let answersGiven = [];
-    let lastResultHtml = ""; // used to restore result after explore
-    let lastSorted = []; // store top2 etc.
+    let lastResultHtml = "";
+    let lastSorted = [];
 
-    /* --------------- Init helpers ------------------ */
-    function initScores(){
-      deptScores = {};
-      Object.keys(deptKeywords).forEach(d => deptScores[d] = 0);
-      traits = { creative:0, organised:0, bold:0, servant:0 };
-      answersGiven = [];
-      questionHistory = [];
+    /* --------------- Initialize ------------------ */
+  function init() {
+    initSlideshow();
+    setLanguage('en');
+    
+    // Load voices for speech synthesis
+    if ('speechSynthesis' in window) {
+        speechSynthesis.getVoices();
+    }
+    
+    // Set up event listeners
+    document.getElementById('start-kharis').addEventListener('click', startQuiz);
+    backBtn.addEventListener('click', goBack);
+    modeBtn.addEventListener('click', toggleMode);
+    languageSelect.addEventListener('change', handleLanguageChange);
+}
+    /* --------------- Language functions ------------------ */
+    function setLanguage(langCode) {
+  currentLanguage = langCode;
+  const lang = translations[langCode] || translations.en;
+  
+  // Update UI text
+  document.getElementById('pageTitle').textContent = lang.title;
+  document.getElementById('pageSubtitle').textContent = lang.subtitle;
+  document.getElementById('username').placeholder = lang.namePlaceholder;
+  document.querySelector('#branch option[disabled]').textContent = lang.branchPlaceholder;
+  document.getElementById('start-kharis').textContent = lang.startButton;
+  
+  // Update answer placeholder if quiz is active
+  const answerInput = document.getElementById('answer');
+  if (answerInput) {
+    answerInput.placeholder = lang.answerPlaceholder || 'Type your answer here...';
+  }
+  
+  // Update back button if visible
+  if (backBtn.style.display !== 'none') {
+    backBtn.textContent = lang.backButton;
+  }
+  
+  // Update quiz if active
+  if (quizEl.classList.contains('show')) {
+    showQuestion();
+  }
+  
+  // Update results if active
+  if (resultEl.classList.contains('show')) {
+    showResult();
+  }
+  
+  // Set the language attribute
+  document.documentElement.lang = langCode;
+}
+
+    function handleLanguageChange() {
+      setLanguage(this.value);
     }
 
-    /* --------------- Show question ------------------ */
+    /* --------------- Quiz functions ------------------ */
+    function startQuiz() {
+  username = (usernameInput.value || '').trim();
+  branch = (branchSelect.value || '').trim();
+  
+  const lang = translations[currentLanguage] || translations.en;
+  
+  if(!username){
+    alert(lang.namePlaceholder + " 😊");
+    return;
+  }
+  if(!branch){
+    alert(lang.branchPlaceholder + " 😊");
+    return;
+  }
+
+  currentQ = 0;
+  questionHistory = [];
+  deptScores = {};
+  showQuestion();
+}
+
     function showQuestion(){
-      const qObj = quizzes[currentQuiz][currentQ];
-      quizEl.innerHTML = `
-        <div class="scripture">${escapeHtml(qObj.s)}</div>
-        <div class="question">${escapeHtml(qObj.q)}</div>
-        <input id="answer" type="text" placeholder="Type your answer here..." aria-label="Your answer" />
-        <button class="btn" id="nextBtn">Next</button>
-      `;
-      quizEl.style.display = "block";
-      startScreenEl.style.display = "none";
-      resultEl.style.display = "none";
-      backBtn.style.display = currentQ > 0 ? "inline-block" : "none";
-      progressBar.style.width = Math.round(((currentQ+1)/quizzes[currentQuiz].length)*100) + "%";
+    const lang = translations[currentLanguage] || translations.en;
+    const qObj = lang.questions[currentQ];
 
-      // attach listener
-      document.getElementById('nextBtn').addEventListener('click', nextQuestion);
+    quizEl.innerHTML = `
+        <div class="question-counter">${lang.questionCounter.replace('{current}', currentQ+1).replace('{total}', lang.questions.length)}</div>
+        <div class="scripture">${qObj.s}</div>
+        <div class="question-container">
+            <div class="question">${qObj.q}</div>
+            <button class="voice-btn" id="voiceBtn" aria-label="Read question aloud">🔊</button>
+        </div>
+        <input id="answer" type="text" placeholder="${lang.answerPlaceholder || 'Type your answer here...'}" aria-label="Your answer" />
+        <div id="error-msg" style="color:#ffd700;font-weight:600;text-align:center;margin-bottom:10px;"></div>
+        <button class="btn" id="nextBtn">${lang.nextButton}</button>
+    `;
 
-      // focus input
-      setTimeout(()=>{ const a = document.getElementById('answer'); if(a) a.focus(); }, 50);
-    }
+    quizEl.classList.add('show');
+    startScreenEl.style.display = "none";
+    resultEl.classList.remove('show');
+    backBtn.style.display = currentQ > 0 ? "inline-block" : "none";
+    backBtn.textContent = lang.backButton;
+    progressBar.style.width = Math.round(((currentQ+1)/lang.questions.length)*100) + "%";
 
-    /* --------------- Scoring ------------------ */
-    function scoreAnswer(input){
-      const text = input.toLowerCase();
-
-      // trait scoring (simple substring checks)
-      if(text.match(/\b(create|art|design|draw|paint|film|photo|song|write|compose)\b/)) traits.creative++;
-      if(text.match(/\b(organis|organize|plan|schedule|manage|coordinate|arrange)\b/)) traits.organised++;
-      if(text.match(/\b(speak|lead|preach|bold|present|leadership|evangel)\b/)) traits.bold++;
-      if(text.match(/\b(help|serve|care|support|encourag|pastor|counsel)\b/)) traits.servant++;
-
-      // dept keyword scoring
-      Object.entries(deptKeywords).forEach(([dept, keywords])=>{
-        // If this is the children's department and the branch isn't London-ish, skip (example business rule)
-        if(dept === "Children's Department") {
-          const lowerBranch = (branch || '').toLowerCase();
-          const allowed = ["kharis church london", "kharis london", "london"];
-          if(!allowed.some(a => lowerBranch.includes(a))) {
-            // skip scoring for Children's Department for non-London branches
-            return;
-          }
+    // Add event listeners
+    setTimeout(() => {
+        const nextBtn = document.getElementById('nextBtn');
+        if (nextBtn) nextBtn.addEventListener('click', nextQuestion);
+        
+        const answerInput = document.getElementById('answer');
+        if (answerInput) answerInput.focus();
+        
+        // Add voice button event listener
+        const voiceBtn = document.getElementById('voiceBtn');
+        if (voiceBtn) {
+            voiceBtn.addEventListener('click', () => {
+                speakText(qObj.q, currentLanguage);
+            });
         }
-        keywords.forEach(k => {
-          if(text.includes(k)) {
-            deptScores[dept] = (deptScores[dept] || 0) + 2;
-          }
-        });
-      });
+    }, 20);
+}
 
-      answersGiven.push({ question: quizzes[currentQuiz][currentQ].q, answer: input, scripture: quizzes[currentQuiz][currentQ].s });
-    }
-
-    /* --------------- Next / Back logic ------------------ */
     function nextQuestion(){
       const inputEl = document.getElementById('answer');
       const value = inputEl ? inputEl.value.trim() : '';
-      if(!value){
-        alert("Please type something so we can figure this out 😊");
+      const lang = translations[currentLanguage] || translations.en;
+
+      if (!value) {
+        document.getElementById('error-msg').textContent = lang.errorMsg;
         return;
       }
 
-      // save snapshot for back
-      questionHistory.push({ q: currentQ, deptScores: JSON.parse(JSON.stringify(deptScores)), traits: JSON.parse(JSON.stringify(traits)), answersGiven: JSON.parse(JSON.stringify(answersGiven)) });
-
+      // Save snapshot for back
+      questionHistory.push({ 
+        q: currentQ,
+        deptScores: {...deptScores}
+      });
+      
+      // Score the answer (simplified for demo)
       scoreAnswer(value);
+      
       currentQ++;
+      const langData = translations[currentLanguage] || translations.en;
 
-      if(currentQ < quizzes[currentQuiz].length){
+      if (currentQ < langData.questions.length) {
         showQuestion();
       } else {
         showResult();
       }
     }
+function scoreAnswer(input) {
+  // Simplified scoring for demo - in a real implementation, this would
+  // analyze the text and assign scores to departments
+  const text = input.toLowerCase();
+  
+  // Just for demo purposes, assign some scores
+  if (text.includes('music') || text.includes('sing') || text.includes('worship')) {
+    deptScores['Music'] = (deptScores['Music'] || 0) + 2;
+  }
+  if (text.includes('child') || text.includes('kid') || text.includes('teach')) {
+    deptScores["Children's Department"] = (deptScores["Children's Department"] || 0) + 2;
+  }
+  if (text.includes('help') || text.includes('serve') || text.includes('care')) {
+    deptScores['Hospitality'] = (deptScores['Hospitality'] || 0) + 2;
+    deptScores['Welfare'] = (deptScores['Welfare'] || 0) + 1;
+  }
+  if (text.includes('organiz') || text.includes('plan') || text.includes('admin')) {
+    deptScores['Administration'] = (deptScores['Administration'] || 0) + 2;
+  }
+  
+  // Ensure all departments have at least some score
+  const lang = translations[currentLanguage] || translations.en;
+  Object.keys(lang.departments).forEach(dept => {
+    deptScores[dept] = deptScores[dept] || Math.random() * 0.5;
+  });
+}
 
-    backBtn.addEventListener('click', ()=>{
-      if(questionHistory.length === 0) return;
-      // restore last
-      const last = questionHistory.pop();
-      currentQ = last.q;
-      deptScores = last.deptScores;
-      traits = last.traits;
-      answersGiven = last.answersGiven;
-      showQuestion();
-    });
+function collectAnswers() {
+  const answers = [];
+  const lang = translations[currentLanguage] || translations.en;
+  
+  for (let i = 0; i < currentQ; i++) {
+    answers.push(`${lang.questions[i].q}: ${questionHistory[i]}`);
+  }
+  
+  return answers;
+}
 
-    /* --------------- Show result ------------------ */
-    async function showResult(){
-      quizEl.style.display = "none";
-      resultEl.style.display = "block";
-      backBtn.style.display = "none";
-      progressBar.style.width = "100%";
+function sendToGoogleSheets(data) {
+  console.log('Sending to Google Sheets:', data);
+  
+  // Convert department names to English before sending
+  const englishData = {
+    name: data.name,
+    branch: data.branch,
+    // Map department names to English (without scores)
+    topDepartments: data.topDepartments.map(dept => convertToEnglish(dept)),
+    // Store the selected language
+    originalLanguage: data.language,
+    timestamp: new Date().toISOString()
+  };
 
-      // trait boosts
-      if(traits.creative > traits.organised) deptScores["Design"] = (deptScores["Design"] || 0) + 2;
-      if(traits.organised > traits.creative) deptScores["Administration"] = (deptScores["Administration"] || 0) + 2;
-      if(traits.bold > traits.servant) deptScores["Evangelism"] = (deptScores["Evangelism"] || 0) + 2;
-      if(traits.servant > traits.bold) deptScores["Welfare"] = (deptScores["Welfare"] || 0) + 2;
+  fetch(SHEET_URL, {
+    method: 'POST',
+    mode: 'no-cors',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(englishData)
+  })
+  .then(response => {
+    console.log('Response status:', response.status);
+    if (response.ok || response.type === 'opaque') {
+      console.log('Data successfully sent to Google Sheets');
+    } else {
+      console.error('Failed to send data to Google Sheets');
+    }
+  })
+  .catch(error => {
+    console.error('Error sending to Google Sheets:', error);
+  });
+}
 
-      // Always pick the top 2 departments even if score is 0
-      const sorted = Object.entries(deptScores).sort((a,b)=>b[1]-a[1]);
-      const top2 = sorted.slice(0,2);
-      lastSorted = top2;
+function goBack() {
+    // Stop any ongoing speech
+    stopSpeech();
+    
+    if(questionHistory.length === 0) return;
+    const last = questionHistory.pop();
+    currentQ = last.q;
+    deptScores = last.deptScores;
+    showQuestion();
+}
 
-      // build result HTML
-      let html = `<h2>${escapeHtml(username)} (${escapeHtml(branch)}) — Your Top Departments</h2>`;
+function showResult(){
+  quizEl.classList.remove('show');
+  resultEl.classList.add('show');
+  backBtn.style.display = "none";
 
-      if(top2.length === 0){
-        html += `<div class="result"><p>No department scores were recorded — but don't worry. Try again and add a few keywords in your answers (e.g., "I love to sing", "I like planning events").</p></div>`;
-      } else {
-        html += `<div class="result">`;
-        top2.forEach((entry, idx) => {
-          const dept = entry[0];
-          html += `
-            <div class="department" id="dept-${idx}">
-              <strong>${escapeHtml(dept)}</strong>
-              <div class="scripture-box" id="scripture-${idx}">
-                <p>${escapeHtml(deptData[dept]?.desc || '—')}</p>
-                <p><strong>Scripture:</strong> ${escapeHtml(deptData[dept]?.scripture || '')}</p>
-              </div>
-            </div>
-          `;
-        });
-        html += `</div>`;
-      }
+  const lang = translations[currentLanguage] || translations.en;
 
+  // Get top departments based on scores
+  const sorted = Object.entries(deptScores).sort((a, b) => b[1] - a[1]);
+  const topDepts = sorted.slice(0, 2);
+  lastSorted = topDepts;
+
+  // Send results to Google Sheets
+  const resultsData = {
+    name: username,
+    branch: branch,
+    topDepartments: topDepts.map(dept => dept[0]),
+    answers: collectAnswers(), // ADD THIS LINE
+    timestamp: new Date().toISOString(),
+    language: currentLanguage
+  };
+
+  sendToGoogleSheets(resultsData);
+
+  // Build result HTML
+  let html = `<h2>${lang.resultsTitle.replace('{name}', username).replace('{branch}', branch)}</h2>`;
+
+  if(topDepts.length === 0){
+    html += `<div class="result"><p>${lang.noResults}</p></div>`;
+  } else {
+    html += `<div class="result">`;
+    topDepts.forEach((entry, idx) => {
+      const dept = entry[0];
+      const deptInfo = lang.departments[dept] || {desc: "Department information", scripture: "Scripture reference"};
       html += `
-        <div style="margin-top:16px;">
-          <button class="btn" id="explore-all-btn">Explore All Departments</button>
-          <button class="btn" id="restart-btn" style="background:transparent;color:var(--btn-bg);border:2px solid var(--btn-bg);">Start Over</button>
+        <div class="department" id="dept-${idx}">
+          <strong>${dept}</strong>
+          <div class="scripture-box" id="scripture-${idx}">
+            <p>${deptInfo.desc}</p>
+            <p><strong>Scripture:</strong> ${deptInfo.scripture}</p>
+          </div>
         </div>
       `;
+    });
+    html += `</div>`;
+  }
 
-      resultEl.innerHTML = html;
-      lastResultHtml = html; // save to be able to go back from Explore
+  html += `
+    <div style="margin-top:16px;">
+      <button class="btn" id="explore-all-btn">${lang.exploreButton}</button>
+      <button class="btn" id="restart-btn" style="background:transparent;color:var(--btn-bg);border:2px solid var(--btn-bg);">${lang.restartButton}</button>
+    </div>
+  `;
 
-      // Show with small animation
-      await wait(100);
-      top2.forEach((_,i) => {
+  resultEl.innerHTML = html;
+  lastResultHtml = html;
+
+  // Show with small animation - wait for DOM to render
+  setTimeout(() => {
+    topDepts.forEach((_, i) => {
+      setTimeout(() => {
+        const el = document.getElementById(`dept-${i}`);
+        const sb = document.getElementById(`scripture-${i}`);
+        if(el && sb){
+          el.classList.add('show');
+          sb.classList.add('visible');
+        }
+      }, i * 350);
+    });
+
+    // Attach listeners
+    const exploreBtn = document.getElementById('explore-all-btn');
+    const restartBtn = document.getElementById('restart-btn');
+    
+    if (exploreBtn) {
+      exploreBtn.addEventListener('click', renderExploreList);
+    }
+    
+    if (restartBtn) {
+      restartBtn.addEventListener('click', restartWithoutReload);
+    }
+  }, 100);
+
+
+
+} // <-- This closes the showResult function
+
+// MOVE THESE FUNCTIONS OUTSIDE OF showResult - THEY SHOULD BE SEPARATE
+function renderExploreList(){
+  const lang = translations[currentLanguage] || translations.en;
+  
+  let html = `<h2>${lang.allDepartments}</h2><div class="explore-list">`;
+  
+  // Add all departments
+  Object.entries(lang.departments).forEach(([dept, info], idx) => {
+    html += `
+      <div class="explore-item" data-idx="${idx}">
+        <div class="title">${dept}</div>
+        <div style="margin-left:12px;font-weight:600;color:var(--btn-bg);">+</div>
+        <div class="explore-details" id="explore-detail-${idx}">
+          <p style="margin:0 0 6px 0">${info.desc}</p>
+          <p style="margin:0;font-style:italic;font-size:0.95rem">${info.scripture}</p>
+        </div>
+      </div>
+    `;
+  });
+  
+  html += `</div><div style="margin-top:14px;"><button class="btn" id="back-to-result">${lang.backToResults}</button></div>`;
+
+  resultEl.innerHTML = html;
+
+  // Attach toggle listeners
+  const items = resultEl.querySelectorAll('.explore-item');
+  items.forEach((it) => {
+    const idx = it.getAttribute('data-idx');
+    const details = resultEl.querySelector(`#explore-detail-${idx}`);
+    details.style.display = 'none';
+    
+    it.addEventListener('click', () => {
+      const isVisible = details.style.display === 'block';
+      details.style.display = isVisible ? 'none' : 'block';
+    });
+  });
+
+  // Back button handler
+  document.getElementById('back-to-result').addEventListener('click', () => {
+    resultEl.innerHTML = lastResultHtml;
+    document.getElementById('explore-all-btn').addEventListener('click', renderExploreList);
+    document.getElementById('restart-btn').addEventListener('click', restartWithoutReload);
+    
+    // Re-animate departments
+    setTimeout(() => {
+      lastSorted.forEach((_, i) => {
         const el = document.getElementById(`dept-${i}`);
         const sb = document.getElementById(`scripture-${i}`);
         if(el){
-          setTimeout(()=> {
-            el.classList.add('show');
-            sb.classList.add('visible');
-          }, i*350);
+          el.classList.add('show');
+          sb.classList.add('visible');
         }
       });
+    }, 100);
+  });
+}
 
-      // confetti & save
-      if(typeof confetti !== 'undefined') {
-        try { confetti({ particleCount: 140, spread: 70, origin: { y: 0.6 } }); } catch(e) { /* ignore */ }
-      }
-      saveResult();
+function restartWithoutReload(){
+    // Stop any ongoing speech
+    stopSpeech();
+    
+    currentQ = 0;
+    questionHistory = [];
+    deptScores = {};
+    startScreenEl.style.display = "block";
+    quizEl.classList.remove('show');
+    resultEl.classList.remove('show');
+    progressBar.style.width = "0%";
+    backBtn.style.display = "none";
+}
 
-      // attach listeners
-      document.getElementById('explore-all-btn').addEventListener('click', renderExploreList);
-      document.getElementById('restart-btn').addEventListener('click', restartWithoutReload);
+// Speech synthesis functions
+function speakText(text, langCode) {
+    if ('speechSynthesis' in window) {
+        // Cancel any ongoing speech
+        window.speechSynthesis.cancel();
+        
+        const utterance = new SpeechSynthesisUtterance(text);
+        const voices = speechSynthesis.getVoices();
+        const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+        
+        // Set language based on device capabilities
+        utterance.lang = getOptimalLanguageCode(langCode, isMobile);
+        
+        let selectedVoice = findBestVoice(voices, langCode, isMobile);
+        
+        if (selectedVoice) {
+            utterance.voice = selectedVoice;
+            console.log('Using voice:', selectedVoice.name, 'for language:', langCode);
+        } else {
+            console.log('No optimal voice found, using default for:', langCode);
+        }
+        
+        // Optimize speech parameters for mobile
+        utterance.rate = isMobile ? 0.95 : 1.0;
+        utterance.pitch = isMobile ? 1.05 : 1.0;
+        utterance.volume = 1.0;
+        
+        // Add error handling
+        utterance.onerror = function(event) {
+            console.error('Speech synthesis error:', event.error);
+            // Fallback to audio files if available
+            playAudioFallback(langCode, text);
+        };
+        
+        utterance.onend = function() {
+            console.log('Speech finished');
+        };
+        
+        window.speechSynthesis.speak(utterance);
+    } else {
+        console.log('Speech Synthesis not supported');
+        playAudioFallback(langCode, text);
     }
+}
 
-    /* --------------- Explore list (titles only, click to expand) ------------------ */
-    function renderExploreList(){
-      // Build a title-only list (bold titles), click to expand details.
-      let html = `<h2>All Departments</h2><div class="explore-list">`;
-      const keys = Object.keys(deptData);
-      keys.forEach((dept, idx) => {
-        html += `
-          <div class="explore-item" data-idx="${idx}">
-            <div class="title">${escapeHtml(dept)}</div>
-            <div style="margin-left:12px;font-weight:600;color:var(--btn-bg);">+</div>
-            <div class="explore-details" id="explore-detail-${idx}">
-              <p style="margin:0 0 6px 0">${escapeHtml(deptData[dept].desc)}</p>
-              <p style="margin:0;font-style:italic;font-size:0.95rem">${escapeHtml(deptData[dept].scripture)}</p>
-            </div>
-          </div>
-        `;
-      });
-      html += `</div><div style="margin-top:14px;"><button class="btn" id="back-to-result">Back to Results</button></div>`;
+function findBestVoice(voices, langCode, isMobile) {
+    // Voice selection priorities for different languages
+    const voicePreferences = {
+        'de': [
+            // German voices (priority order)
+            { pattern: /de-DE/, quality: 10 },
+            { pattern: /de-AT/, quality: 9 },
+            { pattern: /de-CH/, quality: 8 },
+            // Fallback to high-quality English voices for mobile
+            { pattern: /en-GB/, quality: isMobile ? 7 : 0 },
+            { pattern: /en-US/, quality: isMobile ? 6 : 0 }
+        ],
+        'tw': [
+            // African/English voices for Twi
+            { pattern: /en-GH/, quality: 10 },
+            { pattern: /en-NG/, quality: 9 },
+            { pattern: /en-ZA/, quality: 8 },
+            { pattern: /en-GB/, quality: 7 },
+            { pattern: /en-US/, quality: 6 }
+        ],
+        'gd': [
+            // UK/Scottish voices
+            { pattern: /en-GB/, quality: 10 },
+            { pattern: /gd/, quality: 9 }, // Scottish Gaelic if available
+            { pattern: /en-US/, quality: 5 }
+        ],
+        'en': [
+            { pattern: /en-GB/, quality: 10 },
+            { pattern: /en-US/, quality: 9 },
+            { pattern: /en-AU/, quality: 8 }
+        ],
+        'fr': [
+            { pattern: /fr-FR/, quality: 10 },
+            { pattern: /fr-CA/, quality: 9 }
+        ],
+        'es': [
+            { pattern: /es-ES/, quality: 10 },
+            { pattern: /es-MX/, quality: 9 }
+        ],
+        'sv': [
+            { pattern: /sv-SE/, quality: 10 }
+        ]
+    };
 
-      resultEl.innerHTML = html;
+    const preferences = voicePreferences[langCode] || [{ pattern: /en-GB/, quality: 5 }];
+    
+    // Score each voice
+    const scoredVoices = voices.map(voice => {
+        let score = 0;
+        let bestMatchQuality = 0;
+        
+        for (const pref of preferences) {
+            if (pref.pattern.test(voice.lang)) {
+                score = pref.quality;
+                bestMatchQuality = Math.max(bestMatchQuality, pref.quality);
+                break;
+            }
+        }
+        
+        // Bonus points for non-robotic voices
+        if (!voice.name.includes('Robot') && !voice.name.includes('Samantha') && !voice.name.includes('Alex')) {
+            score += 2;
+        }
+        
+        // Bonus for local voices
+        if (voice.localService) {
+            score += 1;
+        }
+        
+        return { voice, score, bestMatchQuality };
+    });
 
-      // Attach toggle listeners (expand/collapse)
-      const items = resultEl.querySelectorAll('.explore-item');
-      items.forEach((it) => {
-        const idx = it.getAttribute('data-idx');
-        const details = resultEl.querySelector(`#explore-detail-${idx}`);
-        // hide details initially
-        details.classList.remove('visible');
-        details.style.display = 'none';
-        it.addEventListener('click', (e) => {
-          // only toggle when clicking the whole item (prevents accidental toggles by keyboard buttons)
-          const isVisible = details.style.display === 'block';
-          // collapse all others (optional) — keep this to prevent clutter
-          resultEl.querySelectorAll('.explore-details').forEach(d => { d.style.display = 'none'; d.classList.remove('visible'); });
-          // toggle current
-          if(!isVisible){
-            details.style.display = 'block';
-            details.classList.add('visible');
-          } else {
-            details.style.display = 'none';
-            details.classList.remove('visible');
-          }
+    // Sort by score (highest first), then by best match quality
+    scoredVoices.sort((a, b) => {
+        if (b.score !== a.score) return b.score - a.score;
+        return b.bestMatchQuality - a.bestMatchQuality;
+    });
+
+    return scoredVoices.length > 0 ? scoredVoices[0].voice : null;
+}
+
+function getOptimalLanguageCode(langCode, isMobile) {
+    const languageMap = {
+        'en': 'en-GB',
+        'fr': 'fr-FR', 
+        'es': 'es-ES',
+        'de': 'de-DE',
+        'tw': isMobile ? 'en-GB' : 'en-GH', // Use UK English for mobile, Ghana English for desktop
+        'sv': 'sv-SE',
+        'gd': 'en-GB'  // Use UK English for Scottish Gaelic
+    };
+    return languageMap[langCode] || 'en-GB';
+}
+// Add a function to populate voice options for debugging
+function populateVoiceList() {
+    if ('speechSynthesis' in window) {
+        const voices = speechSynthesis.getVoices();
+        console.log('Available voices:');
+        voices.forEach(voice => {
+            console.log(`${voice.name} (${voice.lang}) - ${voice.localService ? 'local' : 'remote'}`);
         });
-      });
-
-      // Back button to restore results
-      const backBtnLocal = document.getElementById('back-to-result');
-      backBtnLocal && backBtnLocal.addEventListener('click', ()=> {
-        // restore lastResultHtml and reattach its handlers
-        resultEl.innerHTML = lastResultHtml;
-        // reattach listeners again
-        const exploreBtn = document.getElementById('explore-all-btn');
-        const restartBtn = document.getElementById('restart-btn');
-        if(exploreBtn) exploreBtn.addEventListener('click', renderExploreList);
-        if(restartBtn) restartBtn.addEventListener('click', restartWithoutReload);
-        // re-run small show animation for top depts
-        lastSorted.forEach((_,i) => {
-          const el = document.getElementById(`dept-${i}`);
-          const sb = document.getElementById(`scripture-${i}`);
-          if(el){
-            setTimeout(()=> {
-              el.classList.add('show');
-              sb.classList.add('visible');
-            }, i*300);
-          }
-        });
-      });
     }
+}
 
-    /* --------------- Save results (POST to SHEET_URL) ------------------ */
-    function saveResult(){
-      try {
-        const sorted = Object.entries(deptScores).sort((a,b)=>b[1]-a[1]);
-        const top1 = sorted[0] ? sorted[0][0] : "";
-        const top2 = sorted[1] ? sorted[1][0] : "";
-        const today = new Date();
-        const dateString = today.toLocaleDateString("en-GB", { day:"2-digit", month:"2-digit", year:"numeric" });
-        const payload = { fullName: username, branch: branch, topDept1: top1, topDept2: top2, date: dateString, answers: answersGiven };
-        fetch(SHEET_URL, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(payload),
-          mode: "no-cors"
-        }).then(()=> console.log("✅ Results autosaved")).catch(err => console.warn("❌ Save error", err));
-      } catch(e) {
-        console.warn("Save failed", e);
-      }
-    }
+// Call this when voices are loaded
+if ('speechSynthesis' in window) {
+    speechSynthesis.onvoiceschanged = function() {
+        populateVoiceList();
+    };
+}
+// Helper function to convert department names to English
+function convertToEnglish(deptName) {
+  const departmentMap = {
+    // English to English (base case)
+    "Administration": "Administration",
+    "Children's Department": "Children's Department",
+    "Design": "Design",
+    "Drama": "Drama",
+    "Hospitality": "Hospitality",
+    "Host Team": "Host Team",
+    "Production": "Production",
+    "Music": "Music",
+    "Follow Up": "Follow Up",
+    "New Believers": "New Believers",
+    "Evangelism": "Evangelism",
+    "Sanctuary Keepers": "Sanctuary Keepers",
+    "Set-up": "Set-up",
+    "Social Media": "Social Media",
+    "Sound": "Sound",
+    "Uniform": "Uniform",
+    "Ushers": "Ushers",
+    "Welfare": "Welfare",
+    "Security": "Security",
+    "Media": "Media",
+    "Spoken Word": "Spoken Word",
+    
+    // French to English
+    "Administration": "Administration",
+    "Département des Enfants": "Children's Department",
+    "Design": "Design",
+    "Drame": "Drama",
+    "Hospitalité": "Hospitality",
+    "Équipe d'Accueil": "Host Team",
+    "Production": "Production",
+    "Musique": "Music",
+    "Suivi": "Follow Up",
+    "Nouveaux Croyants": "New Believers",
+    "Évangélisation": "Evangelism",
+    "Gardiens du Sanctuaire": "Sanctuary Keepers",
+    "Installation": "Set-up",
+    "Médias Sociaux": "Social Media",
+    "Son": "Sound",
+    "Uniforme": "Uniform",
+    "Huissiers": "Ushers",
+    "Bien-être": "Welfare",
+    "Sécurité": "Security",
+    "Médias": "Media",
+    "Parole Parlée": "Spoken Word",
+    
+    // Spanish to English
+    "Administración": "Administration",
+    "Departamento Infantil": "Children's Department",
+    "Diseño": "Design",
+    "Drama": "Drama",
+    "Hospitalidad": "Hospitality",
+    "Equipo de Anfitriones": "Host Team",
+    "Producción": "Production",
+    "Música": "Music",
+    "Seguimiento": "Follow Up",
+    "Nuevos Creyentes": "New Believers",
+    "Evangelismo": "Evangelism",
+    "Guardianes del Santuario": "Sanctuary Keepers",
+    "Preparación": "Set-up",
+    "Redes Sociales": "Social Media",
+    "Sonido": "Sound",
+    "Uniforme": "Uniform",
+    "Ujieres": "Ushers",
+    "Bienestar": "Welfare",
+    "Seguridad": "Security",
+    "Medios": "Media",
+    "Palabra Hablada": "Spoken Word"
+  };
+  
+  return departmentMap[deptName] || deptName;
+}
 
-    /* --------------- Start / Restart ------------------ */
-    function restartWithoutReload(){
-      currentQ = 0;
-      initScores();
-      startScreenEl.style.display = "block";
-      quizEl.style.display = "none";
-      resultEl.style.display = "none";
-      progressBar.style.width = "0%";
-      backBtn.style.display = "none";
-    }
-    function restart() { restartWithoutReload(); }
 
-    /* --------------- Start quiz handler ------------------ */
-    document.getElementById('start-kharis').addEventListener('click', ()=>{
-      username = (usernameInput.value || "Friend").trim();
-      branch = (branchSelect.value || "").trim();
-      if(!branch){ alert("Please select your branch."); return; }
-      currentQuiz = "kharis";
-      currentQ = 0;
-      initScores();
-      showQuestion();
-    });
+function toggleMode() {
+  document.body.classList.toggle('light');
+  modeBtn.textContent = document.body.classList.contains('light') ? '☀️' : '🌙';
+}
 
-    /* --------------- Light/Dark toggle ------------------ */
-    modeBtn.addEventListener('click', ()=>{
-      document.body.classList.toggle('light');
-      modeBtn.textContent = document.body.classList.contains('light') ? '☀️' : '🌙';
-    });
-
-    /* --------------- Ensure Confetti canvas size matches viewport ------------------ */
-    function resizeConfettiCanvas(){
-      confettiCanvas.width = window.innerWidth;
-      confettiCanvas.height = window.innerHeight;
-    }
-    window.addEventListener('resize', resizeConfettiCanvas);
-    resizeConfettiCanvas();
-
-    /* --------------- Accessibility: Enter key moves next ------------------ */
-    // We'll let the input's Enter trigger the Next button by delegation
-    quizEl.addEventListener('keydown', (e) => {
-      if(e.key === 'Enter' && document.getElementById('nextBtn')) {
-        e.preventDefault();
-        document.getElementById('nextBtn').click();
-      }
-    });
-
-    /* --------------- Initial focus --------------- */
-    usernameInput.focus();
-
-    /* --------------- End IIFE ------------------ */
-  })();
-  </script>
+// Initialize the application
+init();
+})();
+</script>
 </body>
 </html>
